@@ -13,7 +13,7 @@ public class Battleship{
     private JTextField Yaxis;
 
     public static String nameOfShip[] = {"Submarine","Destroyer","Submarine", "Cruiser","Battleship"};
-    public static int sizeOfShip[] = {2,3,4,5}; // represents size of the ship
+    public static int sizeOfShip[] = {2,3,3,4,5}; // represents size of the ship
     public static int xyBoardSize[] = {10, 10};
     
 
