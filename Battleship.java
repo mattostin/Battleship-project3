@@ -3,32 +3,51 @@ import java.io.*;
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.ActionListener;
 
 
 
 
 public class Battleship extends JFrame{
-    // Create the battleship grid and text fields
-    private JTextField battleshipGrid;
+
+    private JButton[][] buttons;
     private JButton firebutton;
-    private JTextField Xaxis;
-    private JTextField Yaxis;
 
     public static String nameOfShip[] = {"Submarine","Destroyer","Submarine", "Cruiser","Battleship"};
     public static int sizeOfShip[] = {2,3,3,4,5}; // represents size of the ship
     public static int xyBoardSize[] = {10, 10};
 
 
-
-    public void BattleshipGUI() {
-        setTitle("Battlehip!");
+    public Battleship () {
+        super("Battleship Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 1000);
-                
-        Font customFont = new Font("Arial", Font.PLAIN, 14);
+        setLayout(new BorderLayout());
 
-    }
+        buttons = new JButton[10][10];
+        JPanel boardPanel = new JPanel(new GridLayout(10, 10));
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                buttons[i][j] = new JButton();
+                buttons[i][j].setForeground(Color.BLUE);
+                buttons[i][j].setOpaque(true);
+                buttons[i][j].setBorderPainted(true);
+                boardPanel.add(buttons[i][j]);
+                
+                final int row = i;
+                final int col = j;
+
+                buttons[i][j].addActionListener(new ActionListener() {
+
+                    
+                    public void actionPerformed(ActionEvent e) {
+                        System.out.println("Button pressed at: " + (row + 1) + "-" + (char)('A' + col));
+                    }
+                });
+            }
+        }
+
+     }
 }
