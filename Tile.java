@@ -17,6 +17,10 @@ public class Tile {
         this.hit = true;
     }
 
+    public boolean beenHit () {
+        return hit;
+    }
+
     public boolean hasBoat () {
         return hasBoat;
     }
