@@ -12,7 +12,6 @@ public class Game {
             } catch (Exception e) {
                 return;
             }
-            System.out.println(homescreen.multiplayer);
             if (homescreen.multiplayer) {
                 homescreen.setVisible(false);
                 Board player1board = new Board();

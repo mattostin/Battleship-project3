@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Board {
     public Tile[][] tiles;
+    public ArrayList<Ship> ships;
 
     public Board () {
         tiles = new Tile[10][10];    
@@ -13,6 +14,7 @@ public class Board {
     }
 
     public void SetShips (ArrayList<Ship> ships) {
+        this.ships = ships;
         for (Ship a: ships) {
             for (int i = 0; i < a.location.length; i++) {
                 tiles[a.location[i].getX()][a.location[i].getY()].placeBoat();
@@ -27,4 +29,13 @@ public class Board {
     public void hit (int x, int y) {
         tiles[x][y].hit();
     } 
+
+    public boolean gameOver () {
+        for (Ship a: ships) {
+            if (!a.isDead()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

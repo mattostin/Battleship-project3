@@ -17,4 +17,8 @@ public class Player {
         shipsSet = true;
         OwnBoard.SetShips (ships);
     }
+
+    public boolean gameOver () {
+        return OwnBoard.gameOver();
+    }
 }
