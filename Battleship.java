@@ -49,5 +49,40 @@ public class Battleship extends JFrame{
             }
         }
 
-     }
+        JPanel rowLabelPanel = new JPanel(new GridLayout(10, 1));
+        for (int i = 1; i <= 10; i++) {
+            JLabel label = new JLabel(Integer.toString(i));
+            label.setHorizontalAlignment(JLabel.CENTER);
+            rowLabelPanel.add(label);
+        }
+
+        JPanel colLabelPanel = new JPanel(new GridLayout(1, 11)); 
+        colLabelPanel.add(new JLabel());
+
+        for (int c = (int)'A'; c <= (int)'J'; c++) {
+            JLabel label = new JLabel(Character.toString(c));
+            label.setHorizontalAlignment(JLabel.CENTER);
+            colLabelPanel.add(label);
+        }
+        
+        JPanel grid = new JPanel();
+        grid.setLayout(new BorderLayout ());
+
+        grid.add(rowLabelPanel, BorderLayout.WEST);
+        grid.add(colLabelPanel, BorderLayout.NORTH);
+        grid.add(boardPanel, BorderLayout.CENTER);
+
+        JButton fire = new JButton("FIRE");
+        add(grid, BorderLayout.NORTH);
+        add(fire, BorderLayout.SOUTH);
+
+        pack();
+        setLocationRelativeTo(null); 
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new Battleship());
+
+    }
 }
