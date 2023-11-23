@@ -1,5 +1,5 @@
 public class Ship {
-    private Tile[] location;
+    public Tile[] location;
     private boolean[] hit;
     private boolean alive;
 

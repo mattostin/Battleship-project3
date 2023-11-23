@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Board {
     public Tile[][] tiles;
 
@@ -10,8 +12,12 @@ public class Board {
         }
     }
 
-    public void SetShips (Ship[] ships) {
-        // patrol boat      
+    public void SetShips (ArrayList<Ship> ships) {
+        for (Ship a: ships) {
+            for (int i = 0; i < a.location.length; i++) {
+                tiles[a.location[i].getX()][a.location[i].getY()].placeBoat();
+            }
+        }      
     }
 
     public Tile getTile (int x, int y) {
