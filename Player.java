@@ -5,6 +5,7 @@ public class Player {
     public Board OppBoard;
     public boolean turn;
     public boolean shipsSet;
+    public boolean fired;
 
     public Player (boolean turn, Board own, Board opp) {
         this.turn = turn;

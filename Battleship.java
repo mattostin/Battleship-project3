@@ -10,24 +10,30 @@ import javax.swing.border.LineBorder;
 
 public class Battleship extends JFrame{
     private Board board;
+    private Board oppBoard;
     public static String nameOfShip[] = {"Patrol Boat","Destroyer","Submarine", "Cruiser","Battleship"};
     public static int sizeOfShip[] = {2,3,3,4,5}; // represents size of the ship
     public int shipsPlaced = 0;
     public static int xyBoardSize[] = {10, 10};
     private JButton[][] buttons;
+    private JPanel[][] opp;
     public Tile currentTile;
     public ArrayList<Ship> ships;
     public JTextField info;
     public boolean rotate = false; 
+    public Player player;
+    public boolean ready = false;
 
     public Battleship (Player player) {
         super("Battleship Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        this.player = player;
         ArrayList<Ship> ships = new ArrayList<>();
         board = player.OwnBoard;
-        currentTile = board.getTile(0,0);
+        oppBoard = player.OppBoard;
+        currentTile = oppBoard.getTile(0,0);
 
         buttons = new JButton[xyBoardSize[0]][xyBoardSize[1]];
         JPanel boardPanel = new JPanel(new GridLayout(xyBoardSize[0], xyBoardSize[1]));
@@ -49,7 +55,7 @@ public class Battleship extends JFrame{
 
                 buttons[i][j].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        currentTile = board.getTile(x, y);
+                        currentTile = oppBoard.getTile(x, y);
                     }
                 });
             }
@@ -70,6 +76,22 @@ public class Battleship extends JFrame{
             label.setHorizontalAlignment(JLabel.CENTER);
             colLabelPanel.add(label);
         }
+
+        JPanel rowLabelPanel2 = new JPanel(new GridLayout(xyBoardSize[0], 1));
+        for (int i = 1; i <= xyBoardSize[0]; i++) {
+            JLabel label = new JLabel(Integer.toString(i));
+            label.setHorizontalAlignment(JLabel.CENTER);
+            rowLabelPanel2.add(label);
+        }
+
+        JPanel colLabelPanel2 = new JPanel(new GridLayout(1, xyBoardSize[1])); 
+        colLabelPanel.add(new JLabel());
+
+        for (int c = (int)'A'; c < ((int)'A') + xyBoardSize[1]; c++) {
+            JLabel label = new JLabel(Character.toString(c));
+            label.setHorizontalAlignment(JLabel.CENTER);
+            colLabelPanel2.add(label);
+        }
         
         JPanel grid = new JPanel();
         grid.setLayout(new BorderLayout ());
@@ -79,7 +101,7 @@ public class Battleship extends JFrame{
         grid.add(boardPanel, BorderLayout.CENTER);
 
         JPanel bottom = new JPanel();
-        bottom.setLayout(new BorderLayout ());
+        bottom.setLayout(new FlowLayout());
 
         JButton set = new JButton ("Set Ship");
         JButton resetShips = new JButton ("Reset All Ships");
@@ -88,9 +110,10 @@ public class Battleship extends JFrame{
 
         info.setText("Add " + nameOfShip[shipsPlaced] + ", Length " + sizeOfShip[shipsPlaced]);
 
-        bottom.add(set, BorderLayout.CENTER);
-        bottom.add(resetShips, BorderLayout.WEST);
-        bottom.add(finalize, BorderLayout.EAST);
+        bottom.add(set);
+        bottom.add(rotateButton);
+        bottom.add(resetShips);
+        bottom.add(finalize);
 
         JButton fire = new JButton("FIRE");
 
@@ -102,14 +125,14 @@ public class Battleship extends JFrame{
                             Tile[] location = new Tile[sizeOfShip[shipsPlaced]];
                             
                             for (int i = 0; i < sizeOfShip[shipsPlaced]; i++) {
-                                location[i] = new Tile (currentTile.getX() + i, currentTile.getY());
+                                location[i] =  board.getTile(currentTile.getX() + i, currentTile.getY());
+                                opp[currentTile.getX() + i][currentTile.getY()].setBackground(Color.GRAY);
                             }
 
                             ships.add(new Ship(sizeOfShip[shipsPlaced], location));
                             shipsPlaced++;
                             if (shipsPlaced < sizeOfShip.length)
-                            info.setText("Add " + nameOfShip[shipsPlaced] + ", Length " + sizeOfShip[shipsPlaced]);
-                            
+                            info.setText("Add " + nameOfShip[shipsPlaced] + ", Length " + sizeOfShip[shipsPlaced]);   
                         }
                     }
                     else {
@@ -117,7 +140,8 @@ public class Battleship extends JFrame{
                             Tile[] location = new Tile[sizeOfShip[shipsPlaced]];
                             
                             for (int i = 0; i < sizeOfShip[shipsPlaced]; i++) {
-                                location[i] = new Tile (currentTile.getX(), currentTile.getY() + i);
+                                location[i] = board.getTile(currentTile.getX(), currentTile.getY() + i);
+                                opp[currentTile.getX()][currentTile.getY() + i].setBackground(Color.GRAY);
                             }
 
                             ships.add(new Ship(sizeOfShip[shipsPlaced], location));
@@ -136,18 +160,26 @@ public class Battleship extends JFrame{
                     bottom.remove(finalize);
                     bottom.remove(set);
                     bottom.remove(resetShips);
+                    bottom.remove(rotateButton);
                     bottom.add(fire);
                     bottom.revalidate();
                     bottom.repaint();
                     player.SetShips(ships);
+                    ready = true;
                     info.setText("BEGIN");
                 }
             }
         });
 
+        rotateButton.addActionListener (new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                rotate = !rotate;
+            }
+        });
+
         fire.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (!(currentTile.beenHit())) {
+                if (!(currentTile.beenHit()) && player.turn) {
                     currentTile.hit();
                     if (currentTile.hasBoat()) {
                         buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.RED);
@@ -155,16 +187,71 @@ public class Battleship extends JFrame{
                     else {
                         buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.GRAY);
                     }
+                    player.fired = true;
+                    player.turn = false;
                 }
             }
         });
 
+        opp = new JPanel[xyBoardSize[0]][xyBoardSize[1]];
+        JPanel oppPanel = new JPanel(new GridLayout(xyBoardSize[0], xyBoardSize[1]));
+
+        JPanel oppGrid = new JPanel();
+        oppGrid.setLayout(new BorderLayout ());
+
+        for (int i = 0; i < xyBoardSize[0]; i++) {
+            for (int j = 0; j < xyBoardSize[1]; j++) {
+                opp[i][j] = new JPanel();
+                opp[i][j].setPreferredSize(new Dimension (50, 50)); 
+                opp[i][j].setBackground(Color.CYAN);
+                opp[i][j].setBorder(new LineBorder(Color.BLACK));
+                oppPanel.add(opp[i][j]);
+            }
+        }
+
+        oppGrid.add(rowLabelPanel2, BorderLayout.WEST);
+        oppGrid.add(colLabelPanel2, BorderLayout.NORTH);
+        oppGrid.add(oppPanel, BorderLayout.CENTER);
+        
+
+        add(oppGrid, BorderLayout.EAST);
         add(info, BorderLayout.NORTH);
         add(grid, BorderLayout.CENTER);
         add(bottom, BorderLayout.SOUTH);
+        
 
         pack();
         setLocationRelativeTo(null); 
         setVisible(true);
+
+        TurnChecker isTurn = new TurnChecker ();
+
+        isTurn.start();
+
+
+    }
+    private class TurnChecker extends Thread {
+        public TurnChecker () {
+            super();
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(1000); 
+                } catch (Exception e) {
+                    return;
+                }
+                if (ready) {
+                    if (player.turn) {
+                        info.setText("Your Turn");
+                    }
+                    else {
+                        info.setText("Waiting For Your Turn");
+                    }
+                }
+            }
+        }
     }
 }
