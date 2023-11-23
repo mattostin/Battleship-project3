@@ -3,10 +3,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.awt.event.KeyListener;
 import java.awt.event.ActionListener;
 import javax.swing.border.LineBorder;
+import java.net.*;
 
 public class Battleship extends JFrame{
     private Board board;
@@ -23,6 +24,8 @@ public class Battleship extends JFrame{
     public boolean rotate = false; 
     public Player player;
     public boolean ready = false;
+    public ArrayList<Tile> temporaryTiles;
+    public ArrayList<Tile> newBoatTiles;
 
     public Battleship (Player player) {
         super("Battleship Board");
@@ -30,7 +33,10 @@ public class Battleship extends JFrame{
         setLayout(new BorderLayout());
 
         this.player = player;
-        ArrayList<Ship> ships = new ArrayList<>();
+        ships = new ArrayList<>();
+        temporaryTiles = new ArrayList<>();
+        newBoatTiles = new ArrayList<>();
+
         board = player.OwnBoard;
         oppBoard = player.OppBoard;
         currentTile = oppBoard.getTile(0,0);
@@ -119,6 +125,7 @@ public class Battleship extends JFrame{
 
         set.addActionListener (new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                newBoatTiles = new ArrayList<>();
                 if (shipsPlaced < sizeOfShip.length) {
                     if (rotate) {
                         if ((currentTile.getX() + sizeOfShip[shipsPlaced]) <= xyBoardSize[0]) {
@@ -126,6 +133,11 @@ public class Battleship extends JFrame{
                             
                             for (int i = 0; i < sizeOfShip[shipsPlaced]; i++) {
                                 location[i] =  board.getTile(currentTile.getX() + i, currentTile.getY());
+                                if (temporaryTiles.contains(location[i])) {
+                                    flashError("Boat Already There");
+                                    return;
+                                }
+                                newBoatTiles.add(location[i]);
                                 opp[currentTile.getX() + i][currentTile.getY()].setBackground(Color.GRAY);
                             }
 
@@ -141,6 +153,11 @@ public class Battleship extends JFrame{
                             
                             for (int i = 0; i < sizeOfShip[shipsPlaced]; i++) {
                                 location[i] = board.getTile(currentTile.getX(), currentTile.getY() + i);
+                                if (temporaryTiles.contains(location[i])) {
+                                    flashError("Boat Already There");
+                                    return;
+                                }
+                                newBoatTiles.add(location[i]);
                                 opp[currentTile.getX()][currentTile.getY() + i].setBackground(Color.GRAY);
                             }
 
@@ -149,7 +166,10 @@ public class Battleship extends JFrame{
                             if (shipsPlaced < sizeOfShip.length)
                             info.setText("Add " + nameOfShip[shipsPlaced] + ", Length " + sizeOfShip[shipsPlaced]);
                         }
-                    }
+                    }  
+                }
+                for (Tile a: newBoatTiles) {
+                    temporaryTiles.add(a);
                 }
             }
         });
@@ -186,9 +206,9 @@ public class Battleship extends JFrame{
                     }
                     else {
                         buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.GRAY);
+                        player.fired = true;
+                        player.turn = false;
                     }
-                    player.fired = true;
-                    player.turn = false;
                 }
             }
         });
@@ -253,5 +273,9 @@ public class Battleship extends JFrame{
                 }
             }
         }
+    }
+
+    public void flashError (String e) {
+        JOptionPane.showMessageDialog(this, e, "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
