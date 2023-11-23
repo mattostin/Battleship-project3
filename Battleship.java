@@ -27,6 +27,13 @@ public class Battleship extends JFrame{
     public ArrayList<Tile> temporaryTiles;
     public ArrayList<Tile> newBoatTiles;
 
+    //player logic
+
+    public Player player1;
+    public Player player2;
+
+
+
     public Battleship (Player player) {
         super("Battleship Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -199,6 +206,7 @@ public class Battleship extends JFrame{
             }
         });
 
+//fire button
         fire.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (!(currentTile.beenHit()) && player.turn) {
@@ -210,11 +218,13 @@ public class Battleship extends JFrame{
                     else {
                         buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.LIGHT_GRAY);
                         player.fired = true;
-                        player.turn = false;
+                        //made it player 1 might have to change later for functionality reasons.
+                        player1.simulateMove(currentTile);
                     }
                 }
             }
         });
+        
 
         opp = new JPanel[xyBoardSize[0]][xyBoardSize[1]];
         JPanel oppPanel = new JPanel(new GridLayout(xyBoardSize[0], xyBoardSize[1]));

@@ -16,7 +16,7 @@ public class Tile {
     public void hit () {
         this.hit = true;
     }
-
+//is beenHit repetitive with alreadyHit?
     public boolean beenHit () {
         return hit;
     }

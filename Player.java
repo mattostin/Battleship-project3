@@ -22,4 +22,29 @@ public class Player {
     public boolean gameOver () {
         return OwnBoard.gameOver();
     }
+
+    public void simulateMove(Tile currentTile){
+
+        if (firedAt.contains(currentTile)){
+            //need to figure out this implementation
+        }
+        else if (!(currentTile.beenHit()) && !turn){
+            currentTile.hit();
+            firedAt.add(currentTile);
+
+            if (currentTile.hasBoat()){
+                //need to add implementation here.
+
+                //this is placeholder
+
+                System.out.println("Hit! on: " + currentTile);
+            }
+
+        }
+        else{
+            //Miss and switch turns
+
+            System.out.println("Miss on: " + currentTile);
+        }
+    }
 }
