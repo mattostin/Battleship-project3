@@ -7,8 +7,10 @@ public class Player {
     public boolean shipsSet;
     public boolean fired;
     public ArrayList<Tile> firedAt;
+    public boolean gameOver;
 
     public Player (boolean turn, Board own, Board opp) {
+        firedAt = new ArrayList<>();
         this.turn = turn;
         OwnBoard = own;
         OppBoard = opp;
@@ -19,7 +21,7 @@ public class Player {
         OwnBoard.SetShips (ships);
     }
 
-    public boolean gameOver () {
-        return OwnBoard.gameOver();
+    public void gameOver () {
+        gameOver = OwnBoard.gameOver();
     }
 }

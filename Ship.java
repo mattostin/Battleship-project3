@@ -1,7 +1,7 @@
 public class Ship {
     public Tile[] location;
     private boolean[] hit;
-    private boolean alive;
+    private boolean alive = false;
 
     public Ship (int length, Tile[] location) {
         this.location = location;
@@ -15,10 +15,11 @@ public class Ship {
     public boolean isDead () {
         for (boolean a: hit) {
             if (!a) {
-                return false;
+                return alive;
             }
         }
-        return true;
+        sink();
+        return alive;
     }
 
     public void sink () {

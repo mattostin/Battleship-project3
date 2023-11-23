@@ -274,6 +274,9 @@ public class Battleship extends JFrame{
                         info.setText("Waiting For Your Turn");
                     }
                 }
+                if (player.gameOver) {
+                    info.setText("Game Over");
+                }
             }
         }
     }
