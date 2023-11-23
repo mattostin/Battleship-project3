@@ -118,7 +118,10 @@ public class Battleship extends JFrame{
 
         bottom.add(set);
         bottom.add(rotateButton);
+        
+        // FINISH LATER
         bottom.add(resetShips);
+
         bottom.add(finalize);
 
         JButton fire = new JButton("FIRE");
@@ -138,7 +141,6 @@ public class Battleship extends JFrame{
                                     return;
                                 }
                                 newBoatTiles.add(location[i]);
-                                opp[currentTile.getX() + i][currentTile.getY()].setBackground(Color.GRAY);
                             }
 
                             ships.add(new Ship(sizeOfShip[shipsPlaced], location));
@@ -157,8 +159,7 @@ public class Battleship extends JFrame{
                                     flashError("Boat Already There");
                                     return;
                                 }
-                                newBoatTiles.add(location[i]);
-                                opp[currentTile.getX()][currentTile.getY() + i].setBackground(Color.GRAY);
+                                newBoatTiles.add(location[i]);    
                             }
 
                             ships.add(new Ship(sizeOfShip[shipsPlaced], location));
@@ -169,6 +170,7 @@ public class Battleship extends JFrame{
                     }  
                 }
                 for (Tile a: newBoatTiles) {
+                    opp[a.getX()][a.getY()].setBackground(Color.GRAY);
                     temporaryTiles.add(a);
                 }
             }
@@ -201,11 +203,12 @@ public class Battleship extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if (!(currentTile.beenHit()) && player.turn) {
                     currentTile.hit();
+                    player.firedAt.add(currentTile);
                     if (currentTile.hasBoat()) {
                         buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.RED);
                     }
                     else {
-                        buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.GRAY);
+                        buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.LIGHT_GRAY);
                         player.fired = true;
                         player.turn = false;
                     }

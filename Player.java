@@ -6,6 +6,7 @@ public class Player {
     public boolean turn;
     public boolean shipsSet;
     public boolean fired;
+    public ArrayList<Tile> firedAt;
 
     public Player (boolean turn, Board own, Board opp) {
         this.turn = turn;
