@@ -19,8 +19,11 @@ import java.awt.Graphics2D;
 public class Battleship extends JFrame{
     private Board board;
     private Board oppBoard;
-    public static String nameOfShip[] = {"Patrol Boat","Destroyer","Submarine", "Cruiser","Battleship"};
+    public static String nameOfShip[] = {"Patrol Boat","Destroyer","Submarine", "Battleship","Aircraft Carrier"};
+    public static final String finalNames[] = {"Patrol Boat","Destroyer","Submarine", "Battleship","Aircraft Carrier"};
+    public static String nameOfImage[] = {"patrol", "destroyer", "sub", "battleship", "carrier"};
     public static int sizeOfShip[] = {2,3,3,4,5}; // represents size of the ship
+    public static final int finalSizes[] = {2,3,3,4,5};
     public int shipsPlaced = 0;
     public static int xyBoardSize[] = {10, 10};
     private JButton[][] buttons;
@@ -176,9 +179,14 @@ public class Battleship extends JFrame{
                         }
                     }  
                 }
-                for (Tile a: newBoatTiles) {
-                    opp[a.getX()][a.getY()].setBackground(Color.GRAY);
-                    temporaryTiles.add(a);
+
+                boolean drawn = displayBoat(newBoatTiles, nameOfShip[shipsPlaced - 1], sizeOfShip[shipsPlaced - 1], rotate);
+                if (!drawn) {
+                    for (int a = 0; a < newBoatTiles.size(); a++) {
+                        Tile tile = newBoatTiles.get(a);
+                        opp[tile.getX()][tile.getY()].setBackground(Color.GRAY);
+                        temporaryTiles.add(tile);
+                    }
                 }
             }
         });
@@ -326,15 +334,27 @@ public class Battleship extends JFrame{
 
     public void addPicture (String fileName, JPanel tile, boolean rotated) {
         //source: https://stackoverflow.com/questions/6444042/java-resize-image-dynamically-to-fit-grids-in-gridlayout
+        System.out.println(fileName + " " + rotated);
         try {
-            BufferedImage originalImage = ImageIO.read(new File(fileName));
+            tile.removeAll();   
+
+            BufferedImage picture = ImageIO.read(new File(fileName));
             
             if (rotated) {
                 //source: https://stackoverflow.com/questions/15779877/rotate-bufferedimage-inside-jpanel
-                Graphics2D graphic = originalImage.createGraphics();
-                graphic.rotate(Math.toRadians(90), 25, 25);
+                int width = picture.getWidth();
+                int height = picture.getHeight();
+
+                BufferedImage rotatedImage = new BufferedImage(height, width, picture.getType());
+                
+                Graphics2D graphic = rotatedImage.createGraphics();
+                graphic.rotate(Math.toRadians(90), width/2, height/2);
+                graphic.drawImage(picture, null, 0, 0);
+                graphic.dispose();
+
+                picture = rotatedImage;
             }
-            Image resizedImage = originalImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH); 
+            Image resizedImage = picture.getScaledInstance(50, 50, Image.SCALE_SMOOTH); 
 
             ImageIcon pictureIcon = new ImageIcon(resizedImage);
             JLabel label = new JLabel(pictureIcon);
@@ -344,8 +364,43 @@ public class Battleship extends JFrame{
             tile.setBorder(new LineBorder(Color.BLACK));
             tile.setPreferredSize(new Dimension(50,50));
 
+            tile.revalidate();
+            this.repaint();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean displayBoat (ArrayList<Tile> tiles, String name, int len, boolean rotated) {
+        ArrayList<JPanel> panels = new ArrayList<>();
+        for (Tile a: tiles) {
+            //adding the corresponding tiles to an ArrayList of JPanels (easy to send to the image method)
+            panels.add(opp[a.getX()][a.getY()]);
+        }
+
+        String imageName = "";
+
+        for (int i = 0; i < finalNames.length; i++) {
+            if (name.equals(finalNames[i])) {
+                imageName = nameOfImage[i];
+            }
+        }
+        if (imageName.equals("")) {
+            for (int i = 0; i < finalSizes.length; i++) {
+                if (len == finalSizes[i]) {
+                    imageName = nameOfImage[i];
+                }
+            }
+        }
+
+        if (!imageName.equals("")) {
+            for (int i = 1; i <= len; i++) {
+                String imageName2 = imageName + i + ".jpg";
+                addPicture(imageName2, panels.get(panels.size() - i), rotated);
+            }
+            return true;
+        }
+        return false;
     }
 }
