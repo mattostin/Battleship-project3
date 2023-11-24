@@ -249,7 +249,41 @@ public class Battleship extends JFrame{
         TurnChecker isTurn = new TurnChecker ();
         isTurn.start();
 
+        AmbientAnimator waves = new AmbientAnimator ();
+        waves.start();
+
+
        
+    }
+
+    private class AmbientAnimator extends Thread {        
+        
+        public AmbientAnimator () {
+            super();
+        }
+
+        @Override
+        public void run () {
+            while (true) {
+                try {
+                    Thread.sleep(100); 
+                } catch (Exception e) {
+                    return;
+                }
+                for (int i = 0; i < xyBoardSize[0]; i++) {
+                    for (int j = 0; j < xyBoardSize[1]; j++) {
+                        if (player.OwnBoard.getTile(i, j).beenHit()) {
+                            if (player.OwnBoard.getTile(i, j).hasBoat()) {
+                                opp[i][j].setBackground(Color.RED);
+                            }
+                            else {
+                            opp[i][j].setBackground(Color.LIGHT_GRAY);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     private class TurnChecker extends Thread {
@@ -258,10 +292,10 @@ public class Battleship extends JFrame{
         }
 
         @Override
-        public void run() {
+        public void run () {
             while (true) {
                 try {
-                    Thread.sleep(1); 
+                    Thread.sleep(100); 
                 } catch (Exception e) {
                     return;
                 }
