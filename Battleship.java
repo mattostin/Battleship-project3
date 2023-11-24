@@ -12,8 +12,8 @@ import java.net.*;
 public class Battleship extends JFrame{
     private Board board;
     private Board oppBoard;
-    public static String nameOfShip[] = {"Patrol Boat"/*,"Destroyer","Submarine", "Cruiser","Battleship"*/};
-    public static int sizeOfShip[] = {2/*,3,3,4,5*/}; // represents size of the ship
+    public static String nameOfShip[] = {"Patrol Boat","Destroyer","Submarine", "Cruiser","Battleship"};
+    public static int sizeOfShip[] = {2,3,3,4,5}; // represents size of the ship
     public int shipsPlaced = 0;
     public static int xyBoardSize[] = {10, 10};
     private JButton[][] buttons;
