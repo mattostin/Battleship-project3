@@ -287,10 +287,16 @@ public class Battleship extends JFrame{
                     for (int j = 0; j < xyBoardSize[1]; j++) {
                         if (player.OwnBoard.getTile(i, j).beenHit()) {
                             if (player.OwnBoard.getTile(i, j).hasBoat()) {
+                                opp[i][j].removeAll();
                                 opp[i][j].setBackground(Color.RED);
+                                opp[i][j].revalidate();
+                                opp[i][j].repaint();
                             }
                             else {
-                            opp[i][j].setBackground(Color.LIGHT_GRAY);
+                                opp[i][j].removeAll();
+                                opp[i][j].setBackground(Color.LIGHT_GRAY);
+                                opp[i][j].revalidate();
+                                opp[i][j].repaint();
                             }
                         }
                     }
