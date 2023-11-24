@@ -21,14 +21,37 @@ public class Battleship extends JFrame{
     public static int sizeOfShip[] = {2,3,3,4,5}; // represents size of the ship
     public static int xyBoardSize[] = {10, 10};
 
-
+    private void createGrid(){
+        for(int i = 0; i <10; i++);
+        for(int j = 0; j < 10; j++){
+            JLabel cell = new JLabel("", SwingConstants.CENTER);
+            cell.setBorder(BorderFactory.createLineBorder(Color.white));
+            add(cell);
+        }
+    }
 
     public void BattleshipGUI() {
-        setTitle("Battlehip!");
+        setTitle("Battleship!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 1000);
-                
+        setSize(500, 500);
+        setLayout(new GridLayout(10,10));
+        createGrid();
+        setVisible(true);
         Font customFont = new Font("Arial", Font.PLAIN, 14);
 
-    }
+        firebutton = new JButton("FIRE!");
+        Xaxis = new JTextField("1");
+        Xaxis = new JTextField("2");
+        Xaxis = new JTextField("3");
+
+
+
+
+
+
+  }
+
+  public static void main (String[] args){
+    SwingUtilities.invokeLater(() -> new Battleship());
+  }
 }
