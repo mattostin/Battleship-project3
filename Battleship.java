@@ -12,8 +12,8 @@ import java.net.*;
 public class Battleship extends JFrame{
     private Board board;
     private Board oppBoard;
-    public static String nameOfShip[] = {"Patrol Boat","Destroyer","Submarine", "Cruiser","Battleship"};
-    public static int sizeOfShip[] = {2,3,3,4,5}; // represents size of the ship
+    public static String nameOfShip[] = {"Patrol Boat"/*,"Destroyer","Submarine", "Cruiser","Battleship"*/};
+    public static int sizeOfShip[] = {2/*,3,3,4,5*/}; // represents size of the ship
     public int shipsPlaced = 0;
     public static int xyBoardSize[] = {10, 10};
     private JButton[][] buttons;
@@ -200,19 +200,18 @@ public class Battleship extends JFrame{
         });
 
         fire.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (!(currentTile.beenHit()) && player.turn) {
-                    currentTile.hit();
-                    player.firedAt.add(currentTile);
-                    if (currentTile.hasBoat()) {
-                        buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.RED);
+            public void actionPerformed(ActionEvent e) {        
+                    boolean breaker = player.fire(currentTile);
+                    if (breaker) {
+                        if (currentTile.hasBoat()) {
+                            buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.RED);
+                        }
+                        else {
+                            buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.LIGHT_GRAY);
+                            player.fired = true;
+                            player.turn = false;
+                        }
                     }
-                    else {
-                        buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.LIGHT_GRAY);
-                        player.fired = true;
-                        player.turn = false;
-                    }
-                }
             }
         });
 
@@ -248,11 +247,11 @@ public class Battleship extends JFrame{
         setVisible(true);
 
         TurnChecker isTurn = new TurnChecker ();
-
         isTurn.start();
 
-
+       
     }
+    
     private class TurnChecker extends Thread {
         public TurnChecker () {
             super();
@@ -262,20 +261,21 @@ public class Battleship extends JFrame{
         public void run() {
             while (true) {
                 try {
-                    Thread.sleep(1000); 
+                    Thread.sleep(1); 
                 } catch (Exception e) {
                     return;
                 }
-                if (ready) {
-                    if (player.turn) {
-                        info.setText("Your Turn");
-                    }
-                    else {
-                        info.setText("Waiting For Your Turn");
-                    }
-                }
-                if (player.gameOver) {
+                if (player.allSunk) {
                     info.setText("Game Over");
+                } else {
+                    if (ready) {
+                        if (player.turn) {
+                            info.setText("Your Turn");
+                        }
+                        else {
+                            info.setText("Waiting For Your Turn");
+                        }
+                    }
                 }
             }
         }

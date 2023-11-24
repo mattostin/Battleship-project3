@@ -1,20 +1,15 @@
 public class Ship {
     public Tile[] location;
-    private boolean[] hit;
-    private boolean alive = false;
+    private boolean alive = true;
 
     public Ship (int length, Tile[] location) {
         this.location = location;
         this.alive = true;
-        this.hit = new boolean[length];
-        for (int i = 0; i < length; i++) {
-            hit[i] = false;
-        }
     }
 
     public boolean isDead () {
-        for (boolean a: hit) {
-            if (!a) {
+        for (Tile a: location) {
+            if (!a.beenHit()) {
                 return alive;
             }
         }
@@ -25,22 +20,4 @@ public class Ship {
     public void sink () {
         this.alive = false;
     }
-
-    public boolean checkHit (Tile a) {
-        int count = 0;
-        for (Tile b: location) {
-            count++;
-            if (b.equals(a)) {
-                hit[count] = true;
-                if (this.isDead()) 
-                {
-                    sink();
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-
-
 }

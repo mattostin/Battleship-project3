@@ -27,7 +27,7 @@ public class Game {
         if (homescreen.multiplayer) {
             while (true) { 
                 try {
-                    Thread.sleep(1000); 
+                    Thread.sleep(1); 
                 } catch (Exception e) {
                     return;
                 }

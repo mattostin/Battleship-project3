@@ -7,7 +7,7 @@ public class Player {
     public boolean shipsSet;
     public boolean fired;
     public ArrayList<Tile> firedAt;
-    public boolean gameOver;
+    public boolean allSunk;
 
     public Player (boolean turn, Board own, Board opp) {
         firedAt = new ArrayList<>();
@@ -21,7 +21,16 @@ public class Player {
         OwnBoard.SetShips (ships);
     }
 
-    public void gameOver () {
-        gameOver = OwnBoard.gameOver();
+    public boolean fire (Tile tile) {
+        if (!(tile.beenHit()) && this.turn) {
+            tile.hit();
+            this.firedAt.add(tile);
+            // this doesnt work ngl
+            allSunk = !OwnBoard.gameOver();
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
