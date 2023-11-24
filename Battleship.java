@@ -8,6 +8,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.ActionListener;
 import javax.swing.border.LineBorder;
 import java.net.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.awt.Image;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class Battleship extends JFrame{
     private Board board;
@@ -224,9 +231,7 @@ public class Battleship extends JFrame{
         for (int i = 0; i < xyBoardSize[0]; i++) {
             for (int j = 0; j < xyBoardSize[1]; j++) {
                 opp[i][j] = new JPanel();
-                opp[i][j].setPreferredSize(new Dimension (50, 50)); 
-                opp[i][j].setBackground(Color.CYAN);
-                opp[i][j].setBorder(new LineBorder(Color.BLACK));
+                addPicture("water1.jpg", opp[i][j], false);
                 oppPanel.add(opp[i][j]);
             }
         }
@@ -317,5 +322,30 @@ public class Battleship extends JFrame{
 
     public void flashError (String e) {
         JOptionPane.showMessageDialog(this, e, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void addPicture (String fileName, JPanel tile, boolean rotated) {
+        //source: https://stackoverflow.com/questions/6444042/java-resize-image-dynamically-to-fit-grids-in-gridlayout
+        try {
+            BufferedImage originalImage = ImageIO.read(new File(fileName));
+            
+            if (rotated) {
+                //source: https://stackoverflow.com/questions/15779877/rotate-bufferedimage-inside-jpanel
+                Graphics2D graphic = originalImage.createGraphics();
+                graphic.rotate(Math.toRadians(90), 25, 25);
+            }
+            Image resizedImage = originalImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH); 
+
+            ImageIcon pictureIcon = new ImageIcon(resizedImage);
+            JLabel label = new JLabel(pictureIcon);
+
+            tile.setLayout(new BorderLayout());
+            tile.add(label, BorderLayout.CENTER);
+            tile.setBorder(new LineBorder(Color.BLACK));
+            tile.setPreferredSize(new Dimension(50,50));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
