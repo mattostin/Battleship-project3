@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.Image;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class Battleship extends JFrame{
     private Board board;
@@ -227,6 +229,29 @@ public class Battleship extends JFrame{
             }
         });
 
+        //NOT WORKING YET
+        //credit (this.requestFocus();) https://gamedev.stackexchange.com/questions/30460/how-can-i-implement-keylisteners-actionlisteners-into-the-jframe 
+        this.addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                System.out.println("Key Pressed");
+                if (e.getKeyCode() == '\n') {
+                    if (ready) {
+                        fire.doClick();
+                    }
+                    else {
+                        set.doClick();
+                    }      
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+            @Override
+            public void keyTyped(KeyEvent e) {}
+        });
+        this.requestFocus();
+
         opp = new JPanel[xyBoardSize[0]][xyBoardSize[1]];
         JPanel oppPanel = new JPanel(new GridLayout(xyBoardSize[0], xyBoardSize[1]));
 
@@ -248,7 +273,7 @@ public class Battleship extends JFrame{
 
         add(oppGrid, BorderLayout.EAST);
         add(info, BorderLayout.NORTH);
-        add(grid, BorderLayout.CENTER);
+        add(grid, BorderLayout.WEST);
         add(bottom, BorderLayout.SOUTH);
         
 
@@ -370,7 +395,7 @@ public class Battleship extends JFrame{
             this.repaint();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            return;
         }
     }
 

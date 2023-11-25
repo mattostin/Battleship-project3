@@ -18,7 +18,7 @@ public class Bot extends Player {
                     return;
                 }
                 if (this.turn) {
-                    System.out.println("SUPPOSED TO SIMULATE");
+                    //System.out.println("SUPPOSED TO SIMULATE");
                     simulateMove();
                 }
             }

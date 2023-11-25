@@ -7,9 +7,9 @@ public class Game {
     private static Battleship player1ship;
     private static Battleship player2ship;
     private static boolean start = false;
-    private static int[] standardBoardSize = {2, 2};
-private static String[] standardNames = {"Patrol Boat"/* ,"Destroyer","Submarine", "Battleship","Aircraft Carrier"*/};
-private static int[] standardShipSize = {2/* ,3,3,4,5*/};
+    private static int[] standardBoardSize = {10, 10};
+    private static String[] standardNames = {"Patrol Boat","Destroyer","Submarine", "Battleship","Aircraft Carrier"};
+    private static int[] standardShipSize = {2,3,3,4,5};
     public static void main(String[] args) {
 
         //listens for the end of the game
@@ -102,7 +102,7 @@ private static int[] standardShipSize = {2/* ,3,3,4,5*/};
                 }
             }
             if (start) {
-                System.out.println("Game Started");
+                //System.out.println("Game Started");
                 while (true) { 
                     try {
                         Thread.sleep(1); 
@@ -110,12 +110,12 @@ private static int[] standardShipSize = {2/* ,3,3,4,5*/};
                         return;
                     }
                     if (player1.fired) {
-                        System.out.println("Player1 Fired");
+                        //System.out.println("Player1 Fired");
                         player2.turn = true;
                         player1.fired = false;
                     }
                     if (player2.fired) {
-                        System.out.println("Player2 Fired");
+                        //System.out.println("Player2 Fired");
                         player1.turn = true;
                         player2.fired = false;
                     }
