@@ -3,11 +3,13 @@ import java.util.*;
 public class Board {
     public Tile[][] tiles;
     public ArrayList<Ship> ships;
+    public int[] boardSize;
 
-    public Board () {
-        tiles = new Tile[10][10];    
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+    public Board (int[] boardsize) {
+        this.boardSize = boardsize;
+        tiles = new Tile[boardSize[0]][boardSize[1]];    
+        for (int i = 0; i < boardSize[0]; i++) {
+            for (int j = 0; j < boardSize[1]; j++) {
                 tiles[i][j] = new Tile (i, j);
             }
         }

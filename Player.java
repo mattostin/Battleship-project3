@@ -8,14 +8,19 @@ public class Player {
     public boolean fired;
     public ArrayList<Tile> firedAt;
     public boolean allSunk;
+    public String[] names;
+    public int[] sizes;
 
 
-    public Player (boolean turn, Board own, Board opp) {
+    public Player (boolean turn, Board own, Board opp, String[] shipNames, int[] shipSizes) {
         firedAt = new ArrayList<>();
         this.turn = turn;
         OwnBoard = own;
         OppBoard = opp;
         this.allSunk = false;
+        this.sizes = shipSizes;
+        this.names = shipNames;
+
     }
 
     public Player () {
@@ -37,6 +42,31 @@ public class Player {
         }
         else {
             return false;
+        }
+    }
+
+    public void simulateMove(Tile currentTile){
+
+        if (firedAt.contains(currentTile)){
+            //need to figure out this implementation
+        }
+        else if (!(currentTile.beenHit()) && !turn){
+            currentTile.hit();
+            firedAt.add(currentTile);
+
+            if (currentTile.hasBoat()){
+                //need to add implementation here.
+
+                //this is placeholder
+
+                System.out.println("Hit! on: " + currentTile);
+            }
+
+        }
+        else{
+            //Miss and switch turns
+
+            System.out.println("Miss on: " + currentTile);
         }
     }
 }

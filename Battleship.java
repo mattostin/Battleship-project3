@@ -14,13 +14,13 @@ import java.awt.Graphics2D;
 public class Battleship extends JFrame{
     private Board board;
     private Board oppBoard;
-    public static String nameOfShip[] = {"Patrol Boat","Destroyer","Submarine", "Battleship","Aircraft Carrier"};
+    public String[] nameOfShip;
     public static final String finalNames[] = {"Patrol Boat","Destroyer","Submarine", "Battleship","Aircraft Carrier"};
-    public static String nameOfImage[] = {"patrol", "destroyer", "sub", "battleship", "carrier"};
-    public static int sizeOfShip[] = {2,3,3,4,5}; // represents size of the ship
+    public static final String nameOfImage[] = {"patrol", "destroyer", "sub", "battleship", "carrier"};
+    public int[] sizeOfShip; // represents size of the ship
     public static final int finalSizes[] = {2,3,3,4,5}; 
     public int shipsPlaced = 0;
-    public static int xyBoardSize[] = {10, 10};
+    public int[] xyBoardSize;
     private JButton[][] buttons;
     private JPanel[][] opp;
     public Tile currentTile;
@@ -38,6 +38,9 @@ public class Battleship extends JFrame{
         setLayout(new BorderLayout());
 
         this.player = player;
+        this.nameOfShip = player.names;
+        this.sizeOfShip = player.sizes;
+        this.xyBoardSize = player.OwnBoard.boardSize;
         ships = new ArrayList<>();
         temporaryTiles = new ArrayList<>();
         newBoatTiles = new ArrayList<>();
@@ -210,17 +213,17 @@ public class Battleship extends JFrame{
 
         fire.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {        
-                    boolean breaker = player.fire(currentTile);
-                    if (breaker) {
-                        if (currentTile.hasBoat()) {
-                            buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.RED);
-                        }
-                        else {
-                            buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.LIGHT_GRAY);
-                            player.fired = true;
-                            player.turn = false;
-                        }
+                boolean breaker = player.fire(currentTile);
+                if (breaker) {
+                    if (currentTile.hasBoat()) {
+                        buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.RED);
                     }
+                    else {
+                        buttons[currentTile.getX()][currentTile.getY()].setBackground(Color.LIGHT_GRAY);
+                        player.fired = true;
+                        player.turn = false;
+                    }
+                }
             }
         });
 
