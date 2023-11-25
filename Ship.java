@@ -10,11 +10,11 @@ public class Ship {
     public boolean isDead () {
         for (Tile a: location) {
             if (!a.beenHit()) {
-                return alive;
+                return !alive;
             }
         }
         sink();
-        return alive;
+        return !alive;
     }
 
     public void sink () {

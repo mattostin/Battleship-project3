@@ -9,11 +9,17 @@ public class Player {
     public ArrayList<Tile> firedAt;
     public boolean allSunk;
 
+
     public Player (boolean turn, Board own, Board opp) {
         firedAt = new ArrayList<>();
         this.turn = turn;
         OwnBoard = own;
         OppBoard = opp;
+        this.allSunk = false;
+    }
+
+    public Player () {
+        this.allSunk = false;
     }
 
     public void SetShips (ArrayList<Ship> ships) {
@@ -25,8 +31,8 @@ public class Player {
         if (!(tile.beenHit()) && this.turn) {
             tile.hit();
             this.firedAt.add(tile);
-            // this doesnt work ngl
-            allSunk = !OwnBoard.gameOver();
+            allSunk = OppBoard.gameOver();
+            //System.out.println(tile.getX() + " " + tile.getY() + " " + allSunk + " " + OppBoard.gameOver());
             return true;
         }
         else {

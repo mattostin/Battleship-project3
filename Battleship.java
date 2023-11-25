@@ -1,19 +1,14 @@
 import javax.swing.*;
-import java.io.*;
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.*;
-import java.awt.event.KeyListener;
 import java.awt.event.ActionListener;
 import javax.swing.border.LineBorder;
-import java.net.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.awt.Image;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 public class Battleship extends JFrame{
@@ -23,7 +18,7 @@ public class Battleship extends JFrame{
     public static final String finalNames[] = {"Patrol Boat","Destroyer","Submarine", "Battleship","Aircraft Carrier"};
     public static String nameOfImage[] = {"patrol", "destroyer", "sub", "battleship", "carrier"};
     public static int sizeOfShip[] = {2,3,3,4,5}; // represents size of the ship
-    public static final int finalSizes[] = {2,3,3,4,5};
+    public static final int finalSizes[] = {2,3,3,4,5}; 
     public int shipsPlaced = 0;
     public static int xyBoardSize[] = {10, 10};
     private JButton[][] buttons;
@@ -177,16 +172,15 @@ public class Battleship extends JFrame{
                             if (shipsPlaced < sizeOfShip.length)
                             info.setText("Add " + nameOfShip[shipsPlaced] + ", Length " + sizeOfShip[shipsPlaced]);
                         }
-                    }  
-                }
-
-                boolean drawn = displayBoat(newBoatTiles, nameOfShip[shipsPlaced - 1], sizeOfShip[shipsPlaced - 1], rotate);
-                if (!drawn) {
+                    }
+                    boolean drawn = displayBoat(newBoatTiles, nameOfShip[shipsPlaced - 1], sizeOfShip[shipsPlaced - 1], rotate);
                     for (int a = 0; a < newBoatTiles.size(); a++) {
                         Tile tile = newBoatTiles.get(a);
-                        opp[tile.getX()][tile.getY()].setBackground(Color.GRAY);
-                        temporaryTiles.add(tile);
-                    }
+                        if (!drawn) {
+                            opp[tile.getX()][tile.getY()].setBackground(Color.GRAY);
+                        }
+                        temporaryTiles.add(tile);  
+                    } 
                 }
             }
         });
@@ -256,7 +250,7 @@ public class Battleship extends JFrame{
         
 
         pack();
-        setLocationRelativeTo(null); 
+        setResizable(false);
         setVisible(true);
 
         TurnChecker isTurn = new TurnChecker ();
@@ -340,7 +334,6 @@ public class Battleship extends JFrame{
 
     public void addPicture (String fileName, JPanel tile, boolean rotated) {
         //source: https://stackoverflow.com/questions/6444042/java-resize-image-dynamically-to-fit-grids-in-gridlayout
-        System.out.println(fileName + " " + rotated);
         try {
             tile.removeAll();   
 
