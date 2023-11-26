@@ -243,10 +243,10 @@ public class Battleship extends JFrame{
                     }
                     else {
                         set.doClick();
-                    }      
+                    }
                 }
             }
-
+            
             @Override
             public void keyReleased(KeyEvent e) {}
             @Override
