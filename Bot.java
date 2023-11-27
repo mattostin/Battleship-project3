@@ -29,7 +29,7 @@ public class Bot extends Player {
 
     public void placeShips() {
         ArrayList<Ship> shipList = new ArrayList<>();
-        for (int i = 0; i < sizes.length; i++) {
+        for (int i = sizes.length - 1; i >= 0; i--) {
             Ship nextShip = placeShip(sizes[i], names[i]);
             int count = 1;
             for (Tile a: nextShip.location) {

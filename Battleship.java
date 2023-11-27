@@ -31,6 +31,7 @@ public class Battleship extends JFrame{
     public boolean ready = false;
     public ArrayList<Tile> temporaryTiles;
     public ArrayList<Tile> newBoatTiles;
+    public JFrame middle;
 
     public Battleship (Player player) {
         super("Battleship Board");
@@ -271,11 +272,16 @@ public class Battleship extends JFrame{
         oppGrid.add(rowLabelPanel2, BorderLayout.WEST);
         oppGrid.add(colLabelPanel2, BorderLayout.NORTH);
         oppGrid.add(oppPanel, BorderLayout.CENTER);
-        
+
+        JPanel middle = new JPanel ();
+        middle.setLayout (new BorderLayout());    
+
+        middle.add(new JLabel("Enemy Ships:"), BorderLayout.NORTH);
 
         add(oppGrid, BorderLayout.EAST);
         add(info, BorderLayout.NORTH);
         add(grid, BorderLayout.WEST);
+        //add(middle, BorderLayout.CENTER);
         add(bottom, BorderLayout.SOUTH);
         
 
@@ -307,6 +313,27 @@ public class Battleship extends JFrame{
                 } catch (Exception e) {
                     return;
                 }
+
+                /* if (player.OppBoard.shipsSet) {
+                    JFrame middle = new JFrame();
+                    middle.setLayout(new FlowLayout());
+                    for (Ship a: player.OppBoard.ships) {
+                        String display = a.shipName + ": ";
+                        if (a.isDead()) {
+                            display += "destroyed";
+                            JLabel shipStatus = new JLabel(display);
+                            shipStatus.setForeground(Color.red);
+                            middle.add(shipStatus);
+                        }
+                        else {
+                            JLabel shipStatus = new JLabel(display);
+                            shipStatus.setForeground(Color.black);
+                            middle.add(shipStatus);
+                        }  
+                    }
+                    middle.revalidate();
+                    middle.repaint();
+                } */
                 for (int i = 0; i < xyBoardSize[0]; i++) {
                     for (int j = 0; j < xyBoardSize[1]; j++) {
                         if (player.OwnBoard.getTile(i, j).beenHit() && !player.OwnBoard.getTile(i, j).showSunk) {
