@@ -81,6 +81,7 @@ public class Game {
                 if (homescreen.multiplayer) {
                     start = true;
                     homescreen.setVisible(false);
+                    //campaign.setVisible(false);
                     Board player1board = new Board(standardBoardSize);
                     Board player2board = new Board(standardBoardSize);
                     player1 = new Player(true, player1board, player2board, standardNames, standardShipSize);
@@ -93,6 +94,7 @@ public class Game {
                 if (homescreen.computer) {
                     start = true;
                     homescreen.setVisible(false);
+                    //campaign.setVisible(false);
                     Board player1board = new Board(standardBoardSize);
                     Board player2board = new Board(standardBoardSize);
                     player1 = new Player(true, player1board, player2board, standardNames, standardShipSize);
@@ -100,6 +102,10 @@ public class Game {
 
                     player1ship = new Battleship(player1);
                     break;
+                }
+                if (campaign.computer){
+                    start = true;
+                    homescreen.setVisible(false);
                 }
             }
             GameStart();
