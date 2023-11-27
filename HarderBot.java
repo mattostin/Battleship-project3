@@ -127,3 +127,80 @@ public class HarderBot extends Bot {
     
 
 }
+
+
+
+/*
+ * protected void simulateMove() {
+    int a, b;
+
+    if (hits == 0) {
+        a = rand.nextInt(this.OwnBoard.boardSize[0]);
+        b = rand.nextInt(this.OwnBoard.boardSize[1]);
+    } else {
+        Tile previousHit = findPreviousHit();
+        if (previousHit != null) {
+            int x = previousHit.getX();
+            int y = previousHit.getY();
+
+            int[] directions = {1, -1, 0, 0};
+            shuffleArray(directions);
+
+            for (int direction : directions) {
+                if (direction != 0) {
+                    if (isValidTarget(x + direction, y)) {
+                        a = x + direction;
+                        b = y;
+                        Tile target = OppBoard.getTile(a, b);
+                        boolean breaker = this.fire(target);
+                        if (breaker) {
+                            turns++;
+                            this.fired = true;
+                            this.turn = false;
+                            break;
+                        }
+                    }
+                } else {
+                    if (isValidTarget(x, y + direction)) {
+                        a = x;
+                        b = y + direction;
+                        Tile target = OppBoard.getTile(a, b);
+                        boolean breaker = this.fire(target);
+                        if (breaker) {
+                            turns++;
+                            this.fired = true;
+                            this.turn = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        } else {
+            a = rand.nextInt(this.OwnBoard.boardSize[0]);
+            b = rand.nextInt(this.OwnBoard.boardSize[1]);
+        }
+    }
+}
+
+private Tile findPreviousHit() {
+    for (Tile[] row : OppBoard.getBoard()) {
+        for (Tile tile : row) {
+            if (tile.hasBoat() && tile.beenHit()) {
+                return tile;
+            }
+        }
+    }
+    return null;
+}
+
+private void shuffleArray(int[] array) {
+    Random rand = new Random();
+    for (int i = array.length - 1; i > 0; i--) {
+        int index = rand.nextInt(i + 1);
+        int temp = array[index];
+        array[index] = array[i];
+        array[i] = temp;
+    }
+}
+
+ */
