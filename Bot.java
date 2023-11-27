@@ -29,8 +29,8 @@ public class Bot extends Player {
 
     public void placeShips() {
         ArrayList<Ship> shipList = new ArrayList<>();
-        for (int size : sizes) {
-            Ship nextShip = placeShip(size);
+        for (int i = 0; i < sizes.length; i++) {
+            Ship nextShip = placeShip(sizes[i], names[i]);
             for (Tile a: nextShip.location) {
                 a.placeBoat();
             }
@@ -39,7 +39,7 @@ public class Bot extends Player {
         this.SetShips(shipList);
     }
 
-    public Ship placeShip(int size) {
+    public Ship placeShip(int size, String name) {
         boolean rotate = rand.nextBoolean();
 
         while (true) {
@@ -48,12 +48,12 @@ public class Bot extends Player {
 
             if (rotate) {
                 if (x + size <= this.OwnBoard.boardSize[0] && isValidPlacement(x, y, size, rotate)) {
-                    return placeShipOnBoard(x, y, size, rotate);
+                    return placeShipOnBoard(x, y, size, rotate, name);
                     
                 }
             } else {
                 if (y + size <= this.OwnBoard.boardSize[1] && isValidPlacement(x, y, size, rotate)) {
-                    return placeShipOnBoard(x, y, size, rotate);
+                    return placeShipOnBoard(x, y, size, rotate, name);
                    
                 }
             }
@@ -77,7 +77,7 @@ public class Bot extends Player {
         return true;
     }
 
-    private Ship placeShipOnBoard(int x, int y, int size, boolean rotate) {
+    private Ship placeShipOnBoard(int x, int y, int size, boolean rotate, String name) {
         Tile[] location = new Tile[size];
         for (int i = 0; i < size; i++) {
             if (rotate) {
@@ -86,7 +86,7 @@ public class Bot extends Player {
                 location[i] = OwnBoard.getTile(x, y + i);
             }
         }
-        Ship ship = new Ship(size, location);
+        Ship ship = new Ship(size, location, name);
         return ship;
     }
 

@@ -155,7 +155,7 @@ public class Battleship extends JFrame{
                                 newBoatTiles.add(location[i]);
                             }
 
-                            ships.add(new Ship(sizeOfShip[shipsPlaced], location));
+                            ships.add(new Ship(sizeOfShip[shipsPlaced], location, nameOfShip[shipsPlaced]));
                             shipsPlaced++;
                             if (shipsPlaced < sizeOfShip.length)
                             info.setText("Add " + nameOfShip[shipsPlaced] + ", Length " + sizeOfShip[shipsPlaced]);   
@@ -174,7 +174,7 @@ public class Battleship extends JFrame{
                                 newBoatTiles.add(location[i]);    
                             }
 
-                            ships.add(new Ship(sizeOfShip[shipsPlaced], location));
+                            ships.add(new Ship(sizeOfShip[shipsPlaced], location, nameOfShip[shipsPlaced]));
                             shipsPlaced++;
                             if (shipsPlaced < sizeOfShip.length)
                             info.setText("Add " + nameOfShip[shipsPlaced] + ", Length " + sizeOfShip[shipsPlaced]);
@@ -324,7 +324,7 @@ public class Battleship extends JFrame{
                             }
                         }   
                         else if (player.OppBoard.getTile(i, j).equals(currentTile)) {
-                        buttons[i][j].setBackground(Color.yellow);
+                            buttons[i][j].setBackground(Color.yellow);
                         }
                         else if ((player.OppBoard.getTile(i, j).beenHit())) {
                             buttons[i][j].setBackground(Color.lightGray);
