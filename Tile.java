@@ -3,14 +3,18 @@ public class Tile {
     private int x;
     private boolean hasBoat;
     private boolean hit;
+    public String name;
+    public int tileNo;
 
     public Tile (int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public void placeBoat () {
+    public void placeBoat (String name, int tileNo) {
         this.hasBoat = true;
+        this.name = name;
+        this.tileNo = tileNo;
     }
 
     public void hit () {

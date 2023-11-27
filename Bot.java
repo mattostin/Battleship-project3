@@ -31,8 +31,10 @@ public class Bot extends Player {
         ArrayList<Ship> shipList = new ArrayList<>();
         for (int i = 0; i < sizes.length; i++) {
             Ship nextShip = placeShip(sizes[i], names[i]);
+            int count = 1;
             for (Tile a: nextShip.location) {
-                a.placeBoat();
+                a.placeBoat(nextShip.shipName, count);
+                count++;
             }
             shipList.add(nextShip);
         }

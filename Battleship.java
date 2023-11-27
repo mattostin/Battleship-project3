@@ -311,8 +311,18 @@ public class Battleship extends JFrame{
                     for (int j = 0; j < xyBoardSize[1]; j++) {
                         if (player.OwnBoard.getTile(i, j).beenHit()) {
                             if (player.OwnBoard.getTile(i, j).hasBoat()) {
+                                Tile temp = player.OwnBoard.getTile(i, j);
                                 opp[i][j].removeAll();
-                                opp[i][j].setBackground(Color.RED);
+                                //opp[i][j].setBackground(Color.RED);
+                                String name = "destroyed";
+                                for (int c = 0; c < finalNames.length; c++) {
+                                    if (temp.name.equals(finalNames[c])) {
+                                        System.out.println(finalNames[c] + " " + temp.name);
+                                        name += nameOfImage[c];
+                                    }
+                                }
+                                name+= temp.tileNo + ".jpg";
+                                addPicture(name, opp[i][j], false);
                                 opp[i][j].revalidate();
                                 opp[i][j].repaint();
                             }
@@ -373,6 +383,7 @@ public class Battleship extends JFrame{
 
     public void addPicture (String fileName, JPanel tile, boolean rotated) {
         //source: https://stackoverflow.com/questions/6444042/java-resize-image-dynamically-to-fit-grids-in-gridlayout
+        System.out.println(fileName);
         try {
             tile.removeAll();   
 
