@@ -322,9 +322,9 @@ public class Battleship extends JFrame{
                                 opp[i][j].revalidate();
                                 opp[i][j].repaint();
                             }
-                        }
-                        if (player.OppBoard.getTile(i, j).equals(currentTile)) {
-                            buttons[i][j].setBackground(Color.yellow);
+                        }   
+                        else if (player.OppBoard.getTile(i, j).equals(currentTile)) {
+                        buttons[i][j].setBackground(Color.yellow);
                         }
                         else {
                             buttons[i][j].setBackground(Color.cyan);
