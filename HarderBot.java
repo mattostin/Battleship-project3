@@ -89,7 +89,7 @@ public class HarderBot extends Bot {
 //make it so depending on which boat is hit it will make a good move 
 //will need further implementation
 
-            if (hits >=0){
+          /*  if (hits >=0){
                 if (isValidTarget(x + 1, y)) {
                     return OppBoard.getTile(x + 1, y);
                 }
@@ -103,6 +103,7 @@ public class HarderBot extends Bot {
                     return OppBoard.getTile(x, y - 1);
                 }
             }
+            */
             int a = rand.nextInt(this.OwnBoard.boardSize[0]);
             int b = rand.nextInt(this.OwnBoard.boardSize[1]);
             Tile target = OppBoard.getTile(a, b);
