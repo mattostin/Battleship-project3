@@ -30,7 +30,11 @@ public class Bot extends Player {
     protected void placeShips() {
         ArrayList<Ship> shipList = new ArrayList<>();
         for (int size : sizes) {
-            shipList.add(placeShip(size));
+            Ship nextShip = placeShip(size);
+            for (Tile a: nextShip.location) {
+                a.placeBoat();
+            }
+            shipList.add(nextShip);
         }
         this.SetShips(shipList);
     }

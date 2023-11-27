@@ -63,6 +63,7 @@ public class Game {
                         }
                     }
                     EndGame display = new EndGame(player1.allSunk, p1shots, p1hits, p1ships, p2shots, p2hits, p2ships);
+                    start = false;
                     break;
                 }
             }
@@ -101,27 +102,36 @@ public class Game {
                     break;
                 }
             }
-            if (start) {
-                //System.out.println("Game Started");
-                while (true) { 
-                    try {
-                        Thread.sleep(1); 
-                    } catch (Exception e) {
-                        return;
-                    }
-                    if (player1.fired) {
-                        //System.out.println("Player1 Fired");
-                        player2.turn = true;
-                        player1.fired = false;
-                    }
-                    if (player2.fired) {
-                        //System.out.println("Player2 Fired");
-                        player1.turn = true;
-                        player2.fired = false;
-                    }
-                }
-            }
+            GameStart();
+            
         });
         runGame.start();
+
+    }
+
+    public static boolean GameStart () {
+        if (start) {
+        //System.out.println("Game Started");
+            while (true) { 
+                try {
+                    Thread.sleep(1); 
+                } catch (Exception e) {
+                    return false;
+                }
+                if (player1.fired) {
+                    //System.out.println("Player1 Fired");
+                    player2.turn = true;
+                    player1.fired = false;
+                }
+                if (player2.fired) {
+                    //System.out.println("Player2 Fired");
+                    player1.turn = true;
+                    player2.fired = false;
+                }
+                if (!start) {
+                    return true;
+                }
+            }
+        } else {return false;}
     }
 }

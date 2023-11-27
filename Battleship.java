@@ -8,8 +8,6 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.awt.Image;
-import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -136,6 +134,10 @@ public class Battleship extends JFrame{
 
         JButton fire = new JButton("FIRE");
 
+        fire.setMnemonic(KeyEvent.VK_F);
+        fire.setMnemonic(KeyEvent.VK_ENTER);
+
+
         set.addActionListener (new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 newBoatTiles = new ArrayList<>();
@@ -213,7 +215,7 @@ public class Battleship extends JFrame{
             }
         });
 
-        fire.addActionListener(new ActionListener() {
+       fire.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {        
                 boolean breaker = player.fire(currentTile);
                 if (breaker) {
@@ -235,16 +237,16 @@ public class Battleship extends JFrame{
             @Override
             public void keyPressed(KeyEvent e) {
                 System.out.println("Key Pressed");
-                if (e.getKeyCode() == '\n') {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     if (ready) {
                         fire.doClick();
                     }
                     else {
                         set.doClick();
-                    }      
+                    }
                 }
             }
-
+            
             @Override
             public void keyReleased(KeyEvent e) {}
             @Override
@@ -320,6 +322,12 @@ public class Battleship extends JFrame{
                                 opp[i][j].revalidate();
                                 opp[i][j].repaint();
                             }
+                        }   
+                        else if (player.OppBoard.getTile(i, j).equals(currentTile)) {
+                        buttons[i][j].setBackground(Color.yellow);
+                        }
+                        else {
+                            buttons[i][j].setBackground(Color.cyan);
                         }
                     }
                 }
