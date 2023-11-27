@@ -336,7 +336,7 @@ public class Battleship extends JFrame{
                         else if (player.OppBoard.getTile(i, j).equals(currentTile)) {
                             buttons[i][j].setBackground(Color.yellow);
                         }
-                        else if ((player.OppBoard.getTile(i, j).beenHit())) {
+                        else if (!(player.OppBoard.getTile(i, j).hasBoat()) && (player.OppBoard.getTile(i, j).beenHit())) {
                             buttons[i][j].setBackground(Color.lightGray);
                         }
                         else {
