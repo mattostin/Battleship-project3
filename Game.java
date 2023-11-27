@@ -103,10 +103,11 @@ public class Game {
                     player1ship = new Battleship(player1);
                     break;
                 }
-                if (campaign.computer){
+                /*if (campaign.computer){
                     start = true;
                     homescreen.setVisible(false);
                 }
+                */
             }
             GameStart();
             
