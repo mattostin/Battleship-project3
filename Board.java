@@ -19,7 +19,7 @@ public class Board {
         this.ships = ships;
         for (Ship a: ships) {
             for (int i = 0; i < a.location.length; i++) {
-                tiles[a.location[i].getX()][a.location[i].getY()].placeBoat(a.shipName, i + 1);
+                tiles[a.location[i].getX()][a.location[i].getY()].placeBoat(a.shipName, a.length - i);
             }
         }      
     }
