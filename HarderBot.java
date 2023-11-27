@@ -10,11 +10,29 @@ public class HarderBot extends Bot {
     private Random rand = new Random();
 
 
+    Thread harderbotCode = new Thread(() -> {
+        placeShips();
+        while (true) {
+            try {
+                Thread.sleep(1);
+            } catch (Exception e) {
+                System.out.println("FAILURE IN HARDER BOT SLEEP");
+                return;
+            }
+            if (this.turn) {
+                //System.out.println("SUPPOSED TO SIMULATE");
+                simulateMove();
+            }
+        }
+    });
+
+
     @Override
     public void placeShips() {
         ArrayList<Ship> shipList = new ArrayList<>();
 
-        for (int i = sizes.length - 1; i >= 0; i--) {
+        for (int size: sizes) {
+            Ship nextShip = new Ship()
             int size = sizes[i];
             shipList.add(placeShipStrategically(size));
         }
@@ -22,7 +40,7 @@ public class HarderBot extends Bot {
         this.SetShips(shipList);
     }
 
-    private Ship placeShipStrategically(int size) {
+    /*private Ship placeShipStrategically(int size) {
         while (true) {
             int x = rand.nextInt(this.OwnBoard.boardSize[0]);
             int y = rand.nextInt(this.OwnBoard.boardSize[1]);
@@ -34,6 +52,7 @@ public class HarderBot extends Bot {
             }
         }
     }
+    */
 
     
 
