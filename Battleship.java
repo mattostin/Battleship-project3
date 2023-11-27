@@ -155,7 +155,7 @@ public class Battleship extends JFrame{
                                 newBoatTiles.add(location[i]);
                             }
 
-                            ships.add(new Ship(sizeOfShip[shipsPlaced], location, nameOfShip[shipsPlaced]));
+                            ships.add(new Ship(sizeOfShip[shipsPlaced], location, nameOfShip[shipsPlaced], rotate));
                             shipsPlaced++;
                             if (shipsPlaced < sizeOfShip.length)
                             info.setText("Add " + nameOfShip[shipsPlaced] + ", Length " + sizeOfShip[shipsPlaced]);   
@@ -174,7 +174,7 @@ public class Battleship extends JFrame{
                                 newBoatTiles.add(location[i]);    
                             }
 
-                            ships.add(new Ship(sizeOfShip[shipsPlaced], location, nameOfShip[shipsPlaced]));
+                            ships.add(new Ship(sizeOfShip[shipsPlaced], location, nameOfShip[shipsPlaced], rotate));
                             shipsPlaced++;
                             if (shipsPlaced < sizeOfShip.length)
                             info.setText("Add " + nameOfShip[shipsPlaced] + ", Length " + sizeOfShip[shipsPlaced]);
@@ -323,7 +323,7 @@ public class Battleship extends JFrame{
                                     }
                                 }
                                 name+= temp.tileNo + ".jpg";
-                                addPicture(name, opp[i][j], false);
+                                addPicture(name, opp[i][j], temp.rotate);
                                 opp[i][j].revalidate();
                                 opp[i][j].repaint();
                             }

@@ -33,7 +33,7 @@ public class Bot extends Player {
             Ship nextShip = placeShip(sizes[i], names[i]);
             int count = 1;
             for (Tile a: nextShip.location) {
-                a.placeBoat(nextShip.shipName, count);
+                a.placeBoat(nextShip.shipName, count, nextShip.rotate);
                 count++;
             }
             shipList.add(nextShip);
@@ -88,7 +88,7 @@ public class Bot extends Player {
                 location[i] = OwnBoard.getTile(x, y + i);
             }
         }
-        Ship ship = new Ship(size, location, name);
+        Ship ship = new Ship(size, location, name, rotate);
         return ship;
     }
 
