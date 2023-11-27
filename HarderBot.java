@@ -14,7 +14,6 @@ public class HarderBot extends Bot {
     public void placeShips() {
         ArrayList<Ship> shipList = new ArrayList<>();
 
-        //Place larger ships first for a more strategic placement
         for (int i = sizes.length - 1; i >= 0; i--) {
             int size = sizes[i];
             shipList.add(placeShipStrategically(size));
@@ -36,13 +35,11 @@ public class HarderBot extends Bot {
         }
     }
 
-    //Override other methods or add new methods for more strategic gameplay
     
 
     @Override
     public void simulateMove() {
         if (!turn) {
-            //Implement a strategic firing strategy here
             Tile target = bestMove();
             boolean breaker = this.fire(target);
 
@@ -70,7 +67,6 @@ public class HarderBot extends Bot {
     }
 
     private boolean isValidTarget(int x, int y) {
-        //Check if the target coordinates are within the board boundaries and haven't been fired at
         return x >= 0 && x < this.OwnBoard.boardSize[0] &&
                y >= 0 && y < this.OwnBoard.boardSize[1] &&
                !OppBoard.getTile(x, y).beenHit();
@@ -78,15 +74,12 @@ public class HarderBot extends Bot {
 
 
     private Tile bestMoveMaker() {
-        //Get the hit tiles from the opponent's board
         ArrayList<Tile> hitTiles = OppBoard.getHitTiles();
     
-        //Iterate over the hit tiles and try firing around each hit tile
         for (Tile hitTile : hitTiles) {
             int x = hitTile.getX();
             int y = hitTile.getY();
     
-            //Try firing in all four directions around the hit tile
             if (isValidTarget(x + 1, y)) {
                 return OppBoard.getTile(x + 1, y);
             }
@@ -101,7 +94,6 @@ public class HarderBot extends Bot {
             }
         }
     
-        //If no strategic target found, choose a random target
         int a = rand.nextInt(this.OwnBoard.boardSize[0]);
         int b = rand.nextInt(this.OwnBoard.boardSize[1]);
         return OppBoard.getTile(a, b);
