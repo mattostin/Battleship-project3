@@ -3,12 +3,14 @@ public class Ship {
     private boolean alive = true;
     public String shipName;
     public int length;
+    public boolean rotate;
 
-    public Ship (int length, Tile[] location, String name) {
+    public Ship (int length, Tile[] location, String name, boolean rotate) {
         this.location = location;
         this.alive = true;
         this.shipName = name;
         this.length = length;
+        this.rotate = rotate;
     }
 
     public boolean isDead () {

@@ -4,6 +4,7 @@ public class Board {
     public Tile[][] tiles;
     public ArrayList<Ship> ships;
     public int[] boardSize;
+    public boolean shipsSet;
 
     public Board (int[] boardsize) {
         this.boardSize = boardsize;
@@ -19,9 +20,10 @@ public class Board {
         this.ships = ships;
         for (Ship a: ships) {
             for (int i = 0; i < a.location.length; i++) {
-                tiles[a.location[i].getX()][a.location[i].getY()].placeBoat(a.shipName, a.length - i);
+                tiles[a.location[i].getX()][a.location[i].getY()].placeBoat(a.shipName, a.length - i, a.rotate);
             }
-        }      
+        }
+        shipsSet = true;      
     }
 
     public Tile getTile (int x, int y) {
