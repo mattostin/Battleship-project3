@@ -5,6 +5,7 @@ public class Tile {
     private boolean hit;
     public String name;
     public int tileNo;
+    public boolean showSunk = false;
 
     public Tile (int x, int y) {
         this.x = x;

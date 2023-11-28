@@ -2,11 +2,13 @@ public class Ship {
     public Tile[] location;
     private boolean alive = true;
     public String shipName;
+    public int length;
 
     public Ship (int length, Tile[] location, String name) {
         this.location = location;
         this.alive = true;
         this.shipName = name;
+        this.length = length;
     }
 
     public boolean isDead () {

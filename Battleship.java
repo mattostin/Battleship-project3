@@ -309,15 +309,16 @@ public class Battleship extends JFrame{
                 }
                 for (int i = 0; i < xyBoardSize[0]; i++) {
                     for (int j = 0; j < xyBoardSize[1]; j++) {
-                        if (player.OwnBoard.getTile(i, j).beenHit()) {
+                        if (player.OwnBoard.getTile(i, j).beenHit() && !player.OwnBoard.getTile(i, j).showSunk) {
                             if (player.OwnBoard.getTile(i, j).hasBoat()) {
                                 Tile temp = player.OwnBoard.getTile(i, j);
+                                temp.showSunk = true;
                                 opp[i][j].removeAll();
                                 //opp[i][j].setBackground(Color.RED);
                                 String name = "destroyed";
                                 for (int c = 0; c < finalNames.length; c++) {
                                     if (temp.name.equals(finalNames[c])) {
-                                        System.out.println(finalNames[c] + " " + temp.name);
+                                        //System.out.println(finalNames[c] + " " + temp.name);
                                         name += nameOfImage[c];
                                     }
                                 }
@@ -333,13 +334,16 @@ public class Battleship extends JFrame{
                                 opp[i][j].repaint();
                             }
                         }   
-                        else if (player.OppBoard.getTile(i, j).equals(currentTile)) {
+                        else if (!player.OppBoard.getTile(i, j).beenHit() && player.OppBoard.getTile(i, j).equals(currentTile)) {
                             buttons[i][j].setBackground(Color.yellow);
                         }
-                        else if (!(player.OppBoard.getTile(i, j).hasBoat()) && (player.OppBoard.getTile(i, j).beenHit())) {
+                        else if (player.OppBoard.getTile(i, j).beenHit() && player.OppBoard.getTile(i, j).hasBoat()) {
+                            buttons[i][j].setBackground(Color.RED);
+                        }
+                        else if (player.OppBoard.getTile(i, j).beenHit() && !(player.OppBoard.getTile(i, j).hasBoat())) {
                             buttons[i][j].setBackground(Color.lightGray);
                         }
-                        else {
+                        else if (!player.OppBoard.getTile(i, j).beenHit()) {
                             buttons[i][j].setBackground(Color.cyan);
                         }
                     }
@@ -383,7 +387,7 @@ public class Battleship extends JFrame{
 
     public void addPicture (String fileName, JPanel tile, boolean rotated) {
         //source: https://stackoverflow.com/questions/6444042/java-resize-image-dynamically-to-fit-grids-in-gridlayout
-        System.out.println(fileName);
+        //System.out.println(fileName);
         try {
             tile.removeAll();   
 
