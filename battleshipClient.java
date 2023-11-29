@@ -12,6 +12,7 @@ public class battleshipClient {
     private Player thisPlayer;
     private Socket socket;
     private BufferedReader reader;
+    
     private PrintWriter writer;
     public boolean connected;
 
