@@ -32,14 +32,13 @@ public class battleshipClient {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(GUI,"IP/Port Invalid","Connection Error", JOptionPane.ERROR_MESSAGE);
-            connected = false;
+            connected = false;  
             return;
         }
 
     }
 
     private class ReadingThread extends Thread {
-        
     }
 
 }
