@@ -33,7 +33,7 @@ public class HarderBot extends Bot {
 
         for (int size: sizes) {
             Ship nextShip = new Ship()
-            int size = sizes[i];
+            int size2 = sizes[i];
             shipList.add(placeShipStrategically(size));
         }
 
