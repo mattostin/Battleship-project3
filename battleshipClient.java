@@ -12,6 +12,7 @@ public class battleshipClient {
     private Player thisPlayer;
     private Socket socket;
     private BufferedReader reader;
+    
     private PrintWriter writer;
     public boolean connected;
 
@@ -32,14 +33,13 @@ public class battleshipClient {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(GUI,"IP/Port Invalid","Connection Error", JOptionPane.ERROR_MESSAGE);
-            connected = false;
+            connected = false;  
             return;
         }
 
     }
 
     private class ReadingThread extends Thread {
-        
     }
 
 }
