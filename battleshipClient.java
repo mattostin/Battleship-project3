@@ -40,6 +40,7 @@ public class battleshipClient {
     }
 
     private class ReadingThread extends Thread {
+        
     }
 
 }
