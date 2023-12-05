@@ -17,11 +17,37 @@ public class server {
     public final String[] defaultShipNames = {"Patrol Boat","Destroyer","Submarine", "Battleship","Aircraft Carrier"};
 
     public server (int port) {
-
+        try {
+            next = new ServerSocket(port);
+        } catch (Exception e) {
+            return;
+        }
     }
 
+
     public void shoot (Player player, Tile a) {
-        
+        if (player.equals(player1)) {
+            if (player1.OppBoard.tiles[a.getX()][a.getY()].beenHit()) {
+                if (player1.OppBoard.tiles[a.getX()][a.getY()].hasBoat()) {
+                    player1.OppBoard.hit(a.getX(), a.getY());
+                }
+                else {
+                    player1.OppBoard.hit(a.getX(), a.getY());
+                    player1.turn = false;
+                }
+            }
+        }
+        else {
+            if (player2.OppBoard.tiles[a.getX()][a.getY()].beenHit()) {
+                if (player2.OppBoard.tiles[a.getX()][a.getY()].hasBoat()) {
+                    player2.OppBoard.hit(a.getX(), a.getY());
+                }
+                else {
+                    player2.OppBoard.hit(a.getX(), a.getY());
+                    player2.turn = false;
+                }
+            }      
+        }
     }
 
     public void serve(){
@@ -147,15 +173,16 @@ public class server {
 
                 }
 
-                while (player1.allSunk) {
+                while (!player1.allSunk) {
                     String shipsPlaced = "";
+                    shipsPlaced += reader.readLine();
 
                     if (player1.turn && !shipsPlaced.equals("")) {
                         Tile shot = new Tile (((int) shipsPlaced.charAt(1) - (int) '0'), ((int) shipsPlaced.charAt(3) - (int) '0'));
                         channel.shoot(player, shot);
+                        shipsPlaced = "";
                     }
                 }
-          
             }
 
             catch (Exception e){
