@@ -62,23 +62,7 @@ public class Bot extends Player {
         }
     }
 
-    private boolean isValidPlacement(int x, int y, int size, boolean rotate) {
-        if (rotate) {
-            for (int i = 0; i < size; i++) {
-                if (OwnBoard.getTile(x + i, y).hasBoat()) {
-                    return false;
-                }
-            }
-        } else {
-            for (int i = 0; i < size; i++) {
-                if (OwnBoard.getTile(x, y + i).hasBoat()) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
+   
     private Ship placeShipOnBoard(int x, int y, int size, boolean rotate, String name) {
         Tile[] location = new Tile[size];
         for (int i = 0; i < size; i++) {

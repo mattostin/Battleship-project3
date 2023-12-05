@@ -31,6 +31,23 @@ public class Player {
         shipsSet = true;
         OwnBoard.SetShips (ships);
     }
+    
+    public boolean isValidPlacement(int x, int y, int size, boolean rotate) {
+        if (rotate) {
+            for (int i = 0; i < size; i++) {
+                if (OwnBoard.getTile(x + i, y).hasBoat()) {
+                    return false;
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (OwnBoard.getTile(x, y + i).hasBoat()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     public boolean fire (Tile tile) {
         if (!(tile.beenHit()) && this.turn) {
