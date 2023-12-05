@@ -56,7 +56,7 @@ public class HarderBot extends Bot {
     }
     */
 
-    private boolean isValidPlacement(int x, int y, int size, boolean rotate) {
+    public boolean isValidPlacement(int x, int y, int size, boolean rotate) {
         if (rotate) {
             for (int i = 0; i < size; i++) {
                 if (OwnBoard.getTile(x + i, y).hasBoat()) {

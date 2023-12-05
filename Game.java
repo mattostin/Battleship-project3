@@ -93,10 +93,11 @@ private static int[] standardShipSize = {2,3,3,4,5};
                 if (homescreen.computer) {
                     start = true;
                     homescreen.setVisible(false);
+                    Bot_Selection.setVisible(true);
                     Board player1board = new Board(standardBoardSize);
                     Board player2board = new Board(standardBoardSize);
                     player1 = new Player(true, player1board, player2board, standardNames, standardShipSize);
-                    player2 = new Bot(false, player2board, player1board, standardNames, standardShipSize);
+                    player2 = new HarderBot(false, player2board, player1board, standardNames, standardShipSize);
 
                     player1ship = new Battleship(player1);
                     break;
