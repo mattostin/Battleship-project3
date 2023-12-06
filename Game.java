@@ -8,8 +8,8 @@ public class Game {
     private static Battleship player2ship;
     private static boolean start = false;
     private static int[] standardBoardSize = {7, 7};
-private static String[] standardNames = {"Patrol Boat","Destroyer","Submarine", "Battleship","Aircraft Carrier"};
-private static int[] standardShipSize = {2,3,3,4,5};
+    private static String[] standardNames = {"Patrol Boat","Destroyer","Submarine", "Battleship","Aircraft Carrier"};
+    private static int[] standardShipSize = {2,3,3,4,5};
     public static void main(String[] args) {
 
         //listens for the end of the game
@@ -92,12 +92,23 @@ private static int[] standardShipSize = {2,3,3,4,5};
                 }
                 if (homescreen.computer) {
                     start = true;
+                    //Bot_Selection bot_Selection = new Bot_Selection();
                     homescreen.setVisible(false);
-                    Bot_Selection.setVisible(true);
+                    // bot_Selection.setVisible(true);
                     Board player1board = new Board(standardBoardSize);
                     Board player2board = new Board(standardBoardSize);
                     player1 = new Player(true, player1board, player2board, standardNames, standardShipSize);
-                    player2 = new HarderBot(false, player2board, player1board, standardNames, standardShipSize);
+                    //once bots work, easy, hard, impossible get rid of this line below and uncomment the bot_selection stuff.
+                    player2 = new Bot(false, player2board, player1board, standardNames, standardShipSize);
+                    // if (easyMode){
+                    //     player2 = new Bot(false, player2board, player1board, standardNames, standardShipSize);
+                    // }
+                    // if (hardMode){
+                    //     player2 = new HarderBot(false, player2board, player1board, standardNames, standardShipSize);
+                    // }
+                    // if (impossibleMode){
+                    //     player2 = new ImpossibleBot(false, player2board, player1board, standardNames, standardShipSize);
+                    // }
 
                     player1ship = new Battleship(player1);
                     break;

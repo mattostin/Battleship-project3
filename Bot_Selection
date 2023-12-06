@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 public class Bot_Selection extends JFrame {
 
-    public boolean easy, hard, impossible;
-
+    public boolean hard = false;
+    public boolean impossible = false;
 
     public Bot_Selection() {
         super("Bot Difficulty Selection");
@@ -20,21 +20,27 @@ public class Bot_Selection extends JFrame {
         easy_Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                easy = true;
+                public boolean easyMode = true;
+                public boolean hardMode = false;
+                public boolean impossibleMode = false;
             }
         });
 
         hard_Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                hard = true;
+                public boolean easyMode = false;
+                public boolean hardMode = true;
+                public boolean impossibleMode = false;
             }
         });
 
         impossible_Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                impossible = true;
+                public boolean easyMode = false;
+                public boolean hardMode = false;
+                public boolean impossibleMode = true;
             }
         });
 
