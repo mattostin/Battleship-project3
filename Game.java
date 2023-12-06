@@ -91,7 +91,7 @@ public class Game {
                     break;
                 }
                 if (homescreen.computer) {
-                    start = true;
+                    
                     homescreen.setVisible(false);
                     Bot_Selection bot_Selection = new Bot_Selection();
                     bot_Selection.setVisible(true);
@@ -104,16 +104,20 @@ public class Game {
                     //comment this bottom one out and comment lines 105-113 if it doesn't work
                     //player2 = new Bot(false, player2board, player1board, standardNames, standardShipSize);
                     if (bot_Selection.isEasyMode()){
+                        
                         player2 = new Bot(false, player2board, player1board, standardNames, standardShipSize);
                         bot_Selection.setVisible(false);
+                        start = true;
                     }
                     if (bot_Selection.isHardMode()){
                         player2 = new HarderBot(false, player2board, player1board, standardNames, standardShipSize);
                         bot_Selection.setVisible(false);
+                        start = true;
                     }
                     if (bot_Selection.isImpossibleMode()){
                         player2 = new ImpossibleBot(false, player2board, player1board, standardNames, standardShipSize);
                         bot_Selection.setVisible(false);
+                        start = true;
                     }
 
                     player1ship = new Battleship(player1);

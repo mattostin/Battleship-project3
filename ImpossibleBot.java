@@ -237,6 +237,9 @@ public class ImpossibleBot extends HarderBot {
                 int b = rand.nextInt(this.OwnBoard.boardSize[1]);
                 Tile target = OppBoard.getTile(a, b);
                 boolean breaker = this.fire(target);
+                if (target.hasBoat()){
+                    i--;
+                }
             }
                 // if (breaker) {
                 //     if (!target.hasBoat()) {
