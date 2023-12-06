@@ -90,7 +90,8 @@ public class Game {
                     player2ship = new Battleship(player2);
                     break;
                 }
-                if (homescreen.computer) {
+                if (homescreen.computer) { 
+                    
                     
                     homescreen.setVisible(false);
                     Bot_Selection bot_Selection = new Bot_Selection();
@@ -103,24 +104,35 @@ public class Game {
                     //if (easyMode) and hardMode and impossibleMode need to be commented out when the bot_selection screen works.
                     //comment this bottom one out and comment lines 105-113 if it doesn't work
                     //player2 = new Bot(false, player2board, player1board, standardNames, standardShipSize);
-                    if (bot_Selection.isEasyMode()){
+                    if (bot_Selection.easyMode){
                         
                         player2 = new Bot(false, player2board, player1board, standardNames, standardShipSize);
                         bot_Selection.setVisible(false);
                         start = true;
+                        //debugging
+                        System.out.println("Easy Mode chosen");
                     }
-                    if (bot_Selection.isHardMode()){
+                    else if (bot_Selection.hardMode){
                         player2 = new HarderBot(false, player2board, player1board, standardNames, standardShipSize);
                         bot_Selection.setVisible(false);
                         start = true;
+                        //debugging
+                        System.out.println("Hard Mode chosen");
                     }
-                    if (bot_Selection.isImpossibleMode()){
+                    else if (bot_Selection.impossibleMode){
                         player2 = new ImpossibleBot(false, player2board, player1board, standardNames, standardShipSize);
                         bot_Selection.setVisible(false);
                         start = true;
+                        //debugging
+                        System.out.println("Impossible Mode chosen");
+                    }
+                    else{
+                        //debugging
+                        System.out.println("Error with the mode getter");
                     }
 
                     player1ship = new Battleship(player1);
+                    player2ship = new Battleship(player2);
                     break;
                 }
             }
