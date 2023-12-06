@@ -29,7 +29,7 @@ public class HarderBot extends Bot {
         harderbotCode.start();
     }
 
-    public void placeShips() {
+    /*public void placeShips() {
         ArrayList<Ship> shipList = new ArrayList<>();
         for (int i = sizes.length - 1; i >= 0; i--) {
             Ship nextShip = placeShip(sizes[i], names[i]);
@@ -41,20 +41,8 @@ public class HarderBot extends Bot {
             shipList.add(nextShip);
         }
         this.SetShips(shipList);
-    }
-    //Don't need its valid don't need to place strategically
-     /*private Ship placeShipStrategically(int size) {
-        while (true) {
-            int x = rand.nextInt(this.OwnBoard.boardSize[0]);
-            int y = rand.nextInt(this.OwnBoard.boardSize[1]);
-            boolean rotate = rand.nextBoolean();
-
-            if (isValidPlacement(x, y, size, rotate)) {
-                return placeShipOnBoard(x, y, size, rotate);
-            }
-        }
-    }
-    */
+    }*/
+    
 
     public boolean isValidPlacement(int x, int y, int size, boolean rotate) {
         if (rotate) {
@@ -73,7 +61,7 @@ public class HarderBot extends Bot {
         return true;
     }
 
-    private Ship placeShipOnBoard(int x, int y, int size, boolean rotate, String name) {
+    /*private Ship placeShipOnBoard(int x, int y, int size, boolean rotate, String name) {
         Tile[] location = new Tile[size];
         for (int i = 0; i < size; i++) {
             if (rotate) {
@@ -84,11 +72,11 @@ public class HarderBot extends Bot {
         }
         Ship ship = new Ship(size, location, name, rotate);
         return ship;
-    }
+    }*/
 
     @Override
     public void simulateMove() {
-        if (!turn) {
+        if (turn) {
             Tile target = bestMove();
             boolean breaker = this.fire(target);
 
