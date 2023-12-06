@@ -92,23 +92,29 @@ public class Game {
                 }
                 if (homescreen.computer) {
                     start = true;
-                    //Bot_Selection bot_Selection = new Bot_Selection();
                     homescreen.setVisible(false);
-                    // bot_Selection.setVisible(true);
+                    Bot_Selection bot_Selection = new Bot_Selection();
+                    bot_Selection.setVisible(true);
+                    
                     Board player1board = new Board(standardBoardSize);
                     Board player2board = new Board(standardBoardSize);
                     player1 = new Player(true, player1board, player2board, standardNames, standardShipSize);
                     //once bots work, easy, hard, impossible get rid of this line below and uncomment the bot_selection stuff.
-                    player2 = new Bot(false, player2board, player1board, standardNames, standardShipSize);
-                    // if (easyMode){
-                    //     player2 = new Bot(false, player2board, player1board, standardNames, standardShipSize);
-                    // }
-                    // if (hardMode){
-                    //     player2 = new HarderBot(false, player2board, player1board, standardNames, standardShipSize);
-                    // }
-                    // if (impossibleMode){
-                    //     player2 = new ImpossibleBot(false, player2board, player1board, standardNames, standardShipSize);
-                    // }
+                    //if (easyMode) and hardMode and impossibleMode need to be commented out when the bot_selection screen works.
+                    //comment this bottom one out and comment lines 105-113 if it doesn't work
+                    //player2 = new Bot(false, player2board, player1board, standardNames, standardShipSize);
+                    if (bot_Selection.isEasyMode()){
+                        player2 = new Bot(false, player2board, player1board, standardNames, standardShipSize);
+                        bot_Selection.setVisible(false);
+                    }
+                    if (bot_Selection.isHardMode()){
+                        player2 = new HarderBot(false, player2board, player1board, standardNames, standardShipSize);
+                        bot_Selection.setVisible(false);
+                    }
+                    if (bot_Selection.isImpossibleMode()){
+                        player2 = new ImpossibleBot(false, player2board, player1board, standardNames, standardShipSize);
+                        bot_Selection.setVisible(false);
+                    }
 
                     player1ship = new Battleship(player1);
                     break;
@@ -131,7 +137,7 @@ public class Game {
                     return false;
                 }
                 if (player1.fired) {
-                    //System.out.println("Player1 Fired");
+                    //System.out.println("meow");
                     player2.turn = true;
                     player1.fired = false;
                 }

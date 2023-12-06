@@ -5,8 +5,9 @@ import java.awt.event.ActionListener;
 
 public class Bot_Selection extends JFrame {
 
-    public boolean hard = false;
-    public boolean impossible = false;
+    public boolean easyMode = false;
+    public boolean hardMode = false;
+    public boolean impossibleMode = false;
 
     public Bot_Selection() {
         super("Bot Difficulty Selection");
@@ -20,29 +21,26 @@ public class Bot_Selection extends JFrame {
         easy_Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                public boolean easyMode = true;
-                public boolean hardMode = false;
-                public boolean impossibleMode = false;
+                easyMode = true;
             }
         });
 
         hard_Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                public boolean easyMode = false;
-                public boolean hardMode = true;
-                public boolean impossibleMode = false;
+                hardMode = true;
             }
         });
 
         impossible_Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                public boolean easyMode = false;
-                public boolean hardMode = false;
-                public boolean impossibleMode = true;
+                impossibleMode = true;
             }
         });
+
+
+        
 
         add(easy_Button);
         add(hard_Button);
@@ -53,5 +51,16 @@ public class Bot_Selection extends JFrame {
         setVisible(true);
     }
 
+    public boolean isEasyMode(){
+        return easyMode;
+    }
+
+    public boolean isHardMode(){
+        return hardMode;
+    }
+
+    public boolean isImpossibleMode(){
+        return impossibleMode;
+    }
     
 }

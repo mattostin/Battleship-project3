@@ -155,7 +155,7 @@
 import java.util.Random;
 import java.util.*;
 
-public class ImpossibleBot extends Bot {
+public class ImpossibleBot extends HarderBot {
 
     private Random rand = new Random();
 
@@ -237,17 +237,15 @@ public class ImpossibleBot extends Bot {
                 int b = rand.nextInt(this.OwnBoard.boardSize[1]);
                 Tile target = OppBoard.getTile(a, b);
                 boolean breaker = this.fire(target);
-                if (breaker) {
-                    if (!target.hasBoat()) {
-                        this.fired = true;
-                        this.turn = false;
-                        break;
-                    }
-                }
             }
-            
+                // if (breaker) {
+                //     if (!target.hasBoat()) {
+            this.fired = true;
+            this.turn = false;
+            break;
         }
     }
+            
+}
 
     
-}

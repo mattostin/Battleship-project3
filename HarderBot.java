@@ -42,7 +42,7 @@ public class HarderBot extends Bot {
         }
         this.SetShips(shipList);
     }
-    //Don't need its battleship don't need to place strategically
+    //Don't need its valid don't need to place strategically
      /*private Ship placeShipStrategically(int size) {
         while (true) {
             int x = rand.nextInt(this.OwnBoard.boardSize[0]);
