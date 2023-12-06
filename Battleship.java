@@ -119,8 +119,8 @@ public class Battleship extends JFrame{
         bottom.setLayout(new FlowLayout());
 
         JButton set = new JButton ("Set Ship");
-        JButton resetShips = new JButton ("Reset All Ships");
-        JButton rotateButton = new JButton ("Rotate ship");
+        //JButton resetShips = new JButton ("Reset All Ships");
+        JButton rotateButton = new JButton ("Rotate ^");
         JButton finalize = new JButton ("Finalize");
 
         info.setText("Add " + nameOfShip[shipsPlaced] + ", Length " + sizeOfShip[shipsPlaced]);
@@ -129,7 +129,7 @@ public class Battleship extends JFrame{
         bottom.add(rotateButton);
         
         // FINISH LATER
-        bottom.add(resetShips);
+        //bottom.add(resetShips);
 
         bottom.add(finalize);
 
@@ -198,7 +198,7 @@ public class Battleship extends JFrame{
                 if (shipsPlaced == sizeOfShip.length) {
                     bottom.remove(finalize);
                     bottom.remove(set);
-                    bottom.remove(resetShips);
+                    //bottom.remove(resetShips);
                     bottom.remove(rotateButton);
                     bottom.add(fire);
                     bottom.revalidate();
@@ -213,6 +213,12 @@ public class Battleship extends JFrame{
         rotateButton.addActionListener (new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 rotate = !rotate;
+                if (rotate) {
+                    rotateButton.setText("Rotate >");
+                }
+                else {
+                    rotateButton.setText("Rotate ^");
+                }
             }
         });
 
@@ -360,7 +366,7 @@ public class Battleship extends JFrame{
                                 opp[i][j].revalidate();
                                 opp[i][j].repaint();
                             }
-                        }   
+                        }  
                         else if (!player.OppBoard.getTile(i, j).beenHit() && player.OppBoard.getTile(i, j).equals(currentTile)) {
                             buttons[i][j].setBackground(Color.yellow);
                         }
