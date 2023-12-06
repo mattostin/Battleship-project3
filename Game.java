@@ -7,7 +7,7 @@ public class Game {
     private static Battleship player1ship;
     private static Battleship player2ship;
     private static boolean start = false;
-    private static int[] standardBoardSize = {7, 7};
+    private static int[] standardBoardSize = {10, 10};
     private static String[] standardNames = {"Patrol Boat","Destroyer","Submarine", "Battleship","Aircraft Carrier"};
     private static int[] standardShipSize = {2,3,3,4,5};
     public static void main(String[] args) {

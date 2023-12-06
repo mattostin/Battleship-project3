@@ -31,7 +31,7 @@ public class Player {
         shipsSet = true;
         OwnBoard.SetShips (ships);
     }
-    
+
     public boolean isValidPlacement(int x, int y, int size, boolean rotate) {
         if (rotate) {
             for (int i = 0; i < size; i++) {
