@@ -1,5 +1,9 @@
 What Rohan needs to work on
 1. Make HarderBot not shoot twice
+^Kind of fixed
+
+Also make it so that the hittiles array list is cleared when a ship is sunk, isSunk(), send bot array list and based on hits for sunk
+knows which boat it sunk? or should I just make it so that when it shoots around and hits nothing it assumes it is sunk.
 
 2. Make it so Impossible Bot doesn't shoot twenty times sometimes
 and 2 times the other time.
