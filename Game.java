@@ -62,6 +62,7 @@ public class Game {
                             p1ships++;
                         }
                     }
+                    //do we need this line below?
                     EndGame display = new EndGame(player1.allSunk, p1shots, p1hits, p1ships, p2shots, p2hits, p2ships);
                     start = false;
                     break;
@@ -136,6 +137,17 @@ public class Game {
                 }
                     player1ship = new Battleship(player1);
                     //player2ship = new Battleship(player2);
+                }
+
+                //add it so that in the campaign screen it takes the input for both bot difficulty, which can
+                //be copied from above and then the tile size which will need to be a JTextField which they put input
+                //maybe make it two different screens, or we can make it so that it is just a big one with the GridLayout
+                //stuff.
+                if(homescreen.campaign){
+                    homescreen.setVisible(false);
+                    Campaign_Selection Campaigning = new Campaign_Selection();
+                    Campaigning.setVisible(true);
+
                 }
             }
             GameStart();
