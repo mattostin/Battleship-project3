@@ -135,6 +135,10 @@ public class Battleship extends JFrame{
 
         JButton fire = new JButton("FIRE");
 
+
+        //Got idea from this
+        //
+        //https://stackoverflow.com/questions/22443301/key-listener-not-working?rq=4
         fire.setMnemonic(KeyEvent.VK_F);
         fire.setMnemonic(KeyEvent.VK_ENTER);
 

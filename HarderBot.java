@@ -5,8 +5,6 @@ import java.util.Random;
 public class HarderBot extends Bot {
 
     private Random rand = new Random();
-    private int turns;
-    private int hits;
 
     public HarderBot(boolean turn, Board ownBoard, Board oppBoard, String[] shipNames, int[] shipSizes) {
         super(turn, ownBoard, oppBoard, shipNames, shipSizes);

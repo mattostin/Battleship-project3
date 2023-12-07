@@ -152,10 +152,9 @@
 
 
 
-import java.util.Random;
 import java.util.*;
 
-public class ImpossibleBot extends HarderBot {
+public class ImpossibleBot extends Bot {
 
     private Random rand = new Random();
 
@@ -230,22 +229,39 @@ public class ImpossibleBot extends HarderBot {
         return ship;
     }
 
+    //  public void simulateMove() {
+    //     while (true) {
+    //         for (int i = 0; i < 10; i++){
+    //             int a = rand.nextInt(this.OwnBoard.boardSize[0]);
+    //             int b = rand.nextInt(this.OwnBoard.boardSize[1]);
+    //             Tile target = OppBoard.getTile(a, b);
+    //             //boolean breaker = this.fire(target);
+    //             if (target.hasBoat()){
+    //                 i--;
+    //             }
+    //         }
+    //             // if (breaker) {
+    //             //     if (!target.hasBoat()) {
+    //         this.fired = true;
+    //         this.turn = false;
+    //         break;
+    //     }
+    // }
+    
+
     public void simulateMove() {
         while (true) {
-            for (int i = 0; i < 10; i++){
-                int a = rand.nextInt(this.OwnBoard.boardSize[0]);
-                int b = rand.nextInt(this.OwnBoard.boardSize[1]);
-                Tile target = OppBoard.getTile(a, b);
-                //boolean breaker = this.fire(target);
-                if (target.hasBoat()){
-                    i--;
+            int a = rand.nextInt(this.OwnBoard.boardSize[0]);
+            int b = rand.nextInt(this.OwnBoard.boardSize[1]);
+            Tile target = OppBoard.getTile(a, b);
+            boolean breaker = this.fire(target);
+            if (breaker) {
+                if (!target.hasBoat()) {
+                    this.fired = true;
+                    this.turn = false;
+                    break;
                 }
             }
-                // if (breaker) {
-                //     if (!target.hasBoat()) {
-            this.fired = true;
-            this.turn = false;
-            break;
         }
     }
             
