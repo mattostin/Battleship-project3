@@ -20,6 +20,8 @@ public class HarderBot extends Bot {
                 }
                 if (this.turn) {
                     simulateMove();
+                    //debugging purposes
+                    System.out.println("Harder Bot Shoots");
                 }
             }
         });
@@ -84,7 +86,7 @@ public class HarderBot extends Bot {
             }
         }
     }
-
+    
     private Tile bestMove() {
         ArrayList<Tile> hitTiles = getHitTiles();
 
@@ -109,6 +111,7 @@ public class HarderBot extends Bot {
         int a = rand.nextInt(this.OwnBoard.boardSize[0]);
         int b = rand.nextInt(this.OwnBoard.boardSize[1]);
         return OppBoard.getTile(a, b);
+        
     }
 
     private ArrayList<Tile> getHitTiles() {

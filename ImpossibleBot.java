@@ -172,7 +172,15 @@ public class ImpossibleBot extends Bot {
                 }
                 if (this.turn) {
                     //System.out.println("SUPPOSED TO SIMULATE");
-                    simulateMove();
+                    //line below this is the actual code, trying to make it shoot a bunch
+                    // simulateMove();
+                    //works but sometimes shoots 2-3 times other times it shoots like ten times.
+                    for (int i = 0; i<10; i++){
+                        simulateMove();
+                        this.turn = true;
+                        this.fired = false;
+                    }
+
                 }
             }
         });
