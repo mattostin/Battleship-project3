@@ -218,7 +218,7 @@ public class Battleship extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 rotate = !rotate;
                 if (rotate) {
-                    rotateButton.setText("Rotate ^");
+                    rotateButton.setText("Rotate v");
                 }
                 else {
                     rotateButton.setText("Rotate >");
