@@ -23,6 +23,7 @@ General/Miscellaneous
 3. Meow Meow Meow
 4. For the Key listeners we can add the KEY_PRESSED, KEY_RELEASED, KEY_TYPED, got from this
 5. https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/java/awt/event/KeyEvent.html
+6. Make it so that it keeps being yellow even after the bot makes a bunch of shots, stops highlighting
 
 
 

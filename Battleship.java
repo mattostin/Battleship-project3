@@ -120,7 +120,7 @@ public class Battleship extends JFrame{
 
         JButton set = new JButton ("Set Ship");
         //JButton resetShips = new JButton ("Reset All Ships");
-        JButton rotateButton = new JButton ("Rotate ^");
+        JButton rotateButton = new JButton ("Rotate >");
         JButton finalize = new JButton ("Finalize");
 
         info.setText("Add " + nameOfShip[shipsPlaced] + ", Length " + sizeOfShip[shipsPlaced]);
@@ -218,10 +218,10 @@ public class Battleship extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 rotate = !rotate;
                 if (rotate) {
-                    rotateButton.setText("Rotate >");
+                    rotateButton.setText("Rotate ^");
                 }
                 else {
-                    rotateButton.setText("Rotate ^");
+                    rotateButton.setText("Rotate >");
                 }
             }
         });
