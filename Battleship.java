@@ -371,12 +371,13 @@ public class Battleship extends JFrame{
                             }
                         }  
                         else if (!player.OppBoard.getTile(i, j).beenHit() && player.OppBoard.getTile(i, j).equals(currentTile)) {
-                            buttons[i][j].setBackground(Color.yellow);
+                            buttons[i][j].setBackground(Color.GREEN);
                         }
                         else if (player.OppBoard.getTile(i, j).beenHit() && player.OppBoard.getTile(i, j).hasBoat()) {
-                            buttons[i][j].setBackground(Color.RED);
                             if (player.OppBoard.getTile(i, j).ship.isDead()) {
-                                buttons[i][j].setBackground(Color.PINK);
+                                buttons[i][j].setBackground(Color.YELLOW);
+                            } else {
+                                buttons[i][j].setBackground(Color.RED);
                             }
                         }
                         else if (player.OppBoard.getTile(i, j).beenHit() && !(player.OppBoard.getTile(i, j).hasBoat())) {
