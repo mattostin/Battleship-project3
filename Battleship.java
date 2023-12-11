@@ -128,7 +128,7 @@ public class Battleship extends JFrame{
         bottom.add(set);
         bottom.add(rotateButton);
         
-        // FINISH LATER
+        //FINISH LATER
         //bottom.add(resetShips);
 
         bottom.add(finalize);
@@ -137,7 +137,6 @@ public class Battleship extends JFrame{
 
 
         //Got idea to use VK_ENTER and VK_F from this
-        //
         //https://stackoverflow.com/questions/22443301/key-listener-not-working?rq=4
         fire.setMnemonic(KeyEvent.VK_F);
         fire.setMnemonic(KeyEvent.VK_ENTER);
