@@ -7,6 +7,7 @@ public class Tile {
     public int tileNo;
     public boolean showSunk = false;
     public boolean rotate;
+    public Ship ship;
 
     public Tile (int x, int y) {
         this.x = x;
@@ -18,6 +19,10 @@ public class Tile {
         this.name = name;
         this.tileNo = tileNo;
         this.rotate = rotate;
+    }
+
+    public void setShip (Ship a) {
+        this.ship = a;
     }
 
     public void hit () {
