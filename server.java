@@ -16,6 +16,7 @@ public class server {
     public String[] shipNames;
     public final String[] defaultShipNames = {"Patrol Boat","Destroyer","Submarine", "Battleship","Aircraft Carrier"};
 
+
     public server (int port) {
         try {
             next = new ServerSocket(port);
@@ -24,100 +25,92 @@ public class server {
         }
     }
 
+    public void placeShips (Player player, ArrayList<Ship> a) {
+
+    }
 
     public void shoot (Player player, Tile a) {
         if (player.equals(player1)) {
-            if (player1.OppBoard.tiles[a.getX()][a.getY()].beenHit()) {
+            if (!player1.OppBoard.tiles[a.getX()][a.getY()].beenHit()) {
                 if (player1.OppBoard.tiles[a.getX()][a.getY()].hasBoat()) {
                     player1.OppBoard.hit(a.getX(), a.getY());
+                    client2.writer.print(a.getX() + "" + a.getY());
                 }
                 else {
                     player1.OppBoard.hit(a.getX(), a.getY());
+                    client2.writer.print(a.getX() + "" + a.getY());
                     player1.turn = false;
+                    client2.writer.flush();
                 }
             }
         }
         else {
-            if (player2.OppBoard.tiles[a.getX()][a.getY()].beenHit()) {
+            if (!player2.OppBoard.tiles[a.getX()][a.getY()].beenHit()) {
                 if (player2.OppBoard.tiles[a.getX()][a.getY()].hasBoat()) {
                     player2.OppBoard.hit(a.getX(), a.getY());
+                    client1.writer.print(a.getX() + "" + a.getY());
                 }
                 else {
                     player2.OppBoard.hit(a.getX(), a.getY());
+                    client1.writer.print(a.getX() + "" + a.getY());
                     player2.turn = false;
+                    client1.writer.flush();
                 }
             }      
         }
     }
 
     public void serve(){
-        Board board1 = null;
-        Board board2 = null;
-        String[] namesFinal = null;
-        int[] sizesFinal = null;
-       
+        int[] size = {10, 10};
+        Board board1 = new Board(size);
+        Board board2 = new Board(size);
+
         while(player2.equals(null)){  
             try {
-                
+                Thread.sleep(1);
                 Socket clientSocket = next.accept();
                 reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 //player needs: boolean turn, Board own, Board opp, String[] shipNames, int[] shipSizes
                 if (player1.equals(null)) {
-                    String boardX = reader.readLine();
-                    String boardY = reader.readLine();
-                    String Ships = reader.readLine(); 
-                    int numShips = Integer.parseInt(Ships);
-                    namesFinal = new String [numShips];
-                    sizesFinal = new int [numShips];
-                    String names = reader.readLine();
-                    int i = 0; 
-                    int j = 0;
-                    int idx = 0;
-                    while (i < names.length()) {
-                        if (names.charAt(i) == ',') {
-                            namesFinal[idx] = names.substring(j, i);
-                            idx++;
-                            j = i + 1;
-                        }
-                        i++;
-                    }
-                    String sizes = reader.readLine();
-                    i = 0; 
-                    j = 0;
-                    idx = 0;
-                    while (i < sizes.length()) {
-                        if (sizes.charAt(i) == ',') {
-                            sizesFinal[idx] = Integer.parseInt(sizes.substring(j, i));
-                            idx++;
-                            j = i + 1;
-                        }
-                        i++;
-                    }
-
-                    int x = Integer.parseInt(boardX);
-                    int y = Integer.parseInt(boardY);
-                    int[] dimension = {x, y};
-                    board1 = new Board(dimension);
-                    board2 = new Board(dimension);
-                    player1 = new Player(true, board1, board2, namesFinal, sizesFinal);
-                    client1 = new BattleshipClient (clientSocket, player1, this);
-
+                    player1 = new Player(true, board1, board2, defaultShipNames, defaultShipSizes);
+                    client1 = new BattleshipClient(clientSocket, player1, this);
                 }
-                else {
-                    player2 = new Player(false, board2, board1, namesFinal, sizesFinal);
-                    client2 = new BattleshipClient (clientSocket, player1, this);
-                    client1.start();
-                    client2.start();
+                else if (player2.equals(null)) {
+                    player2 = new Player(false, board2, board1, defaultShipNames, defaultShipSizes);
+                    client2 = new BattleshipClient(clientSocket, player2, this);
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+                    
+            } catch (Exception e) {
+                return;
             }
-
         }
+
+        while (!player1.shipsSet && !player2.shipsSet) {
+            try {
+                Thread.sleep(1);
+                reader = client1.reader;
+                
+                
+
+            } catch (Exception e) {
+                return;
+            }
+        }
+
+        while (true) {
+            try {
+
+
+
+            } catch (Exception e) {
+                return;
+            }
+        }
+
     }
 
-
-    private class BattleshipClient extends Thread{
+    private class BattleshipClient extends Thread 
+    {
         public Socket socket;
         private PrintWriter writer;
         private BufferedReader reader;
