@@ -12,11 +12,11 @@ public class Homescreen extends JFrame {
     public Homescreen() {
         super("Battleship");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(3, 1));
+        setLayout(new GridLayout(2, 1));
 
         JButton multiplayerButton = new JButton("Multiplayer");
         JButton computerButton = new JButton("Computer");
-        JButton campaignButton = new JButton("Campaign");
+        //JButton campaignButton = new JButton("Campaign");
 
         multiplayerButton.addActionListener(new ActionListener() {
             @Override
@@ -32,16 +32,16 @@ public class Homescreen extends JFrame {
             }
         });
 
-        campaignButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                campaign = true;
-            }
-        });
+        // campaignButton.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         campaign = true;
+        //     }
+        // });
 
         add(multiplayerButton);
         add(computerButton);
-        add(campaignButton);
+        //add(campaignButton);
 
         pack();
         setLocationRelativeTo(null); 
