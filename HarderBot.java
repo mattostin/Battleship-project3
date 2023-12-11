@@ -10,7 +10,6 @@ public class HarderBot extends Bot {
         super(turn, ownBoard, oppBoard, shipNames, shipSizes);
 
         Thread harderbotCode = new Thread(() -> {
-            placeShips();
             while (true) {
                 try {
                     Thread.sleep(1);

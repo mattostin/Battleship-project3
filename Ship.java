@@ -11,6 +11,9 @@ public class Ship {
         this.shipName = name;
         this.length = length;
         this.rotate = rotate;
+        for (Tile a: location) {
+            a.setShip(this);
+        }
     }
 
     public boolean isDead () {
