@@ -12,7 +12,6 @@ public class ImpossibleBot extends Bot {
         super(turn, ownBoard, oppBoard, shipNames, shipSizes);
 
         Thread impossiblebotCode = new Thread(() -> {
-            placeShips();
             while (true) {
                 try {
                     Thread.sleep(1);
@@ -51,54 +50,6 @@ public class ImpossibleBot extends Bot {
         impossiblebotCode.start();
     }
 
-    public void placeShips() {
-        ArrayList<Ship> shipList = new ArrayList<>();
-        for (int i = sizes.length - 1; i >= 0; i--) {
-            Ship nextShip = placeShip(sizes[i], names[i]);
-            int count = 1;
-            for (Tile a: nextShip.location) {
-                a.placeBoat(nextShip.shipName, count, nextShip.rotate);
-                count++;
-            }
-            shipList.add(nextShip);
-        }
-        this.SetShips(shipList);
-    }
-
-    public Ship placeShip(int size, String name) {
-        boolean rotate = rand.nextBoolean();
-
-        while (true) {
-            int x = rand.nextInt(this.OwnBoard.boardSize[0]);
-            int y = rand.nextInt(this.OwnBoard.boardSize[1]);
-
-            if (rotate) {
-                if (x + size <= this.OwnBoard.boardSize[0] && isValidPlacement(x, y, size, rotate)) {
-                    return placeShipOnBoard(x, y, size, rotate, name);
-                    
-                }
-            } else {
-                if (y + size <= this.OwnBoard.boardSize[1] && isValidPlacement(x, y, size, rotate)) {
-                    return placeShipOnBoard(x, y, size, rotate, name);
-                   
-                }
-            }
-        }
-    }
-
-   
-    private Ship placeShipOnBoard(int x, int y, int size, boolean rotate, String name) {
-        Tile[] location = new Tile[size];
-        for (int i = 0; i < size; i++) {
-            if (rotate) {
-                location[i] = OwnBoard.getTile(x + i, y);
-            } else {
-                location[i] = OwnBoard.getTile(x, y + i);
-            }
-        }
-        Ship ship = new Ship(size, location, name, rotate);
-        return ship;
-    }
 
     //  public void simulateMove() {
     //     while (true) {
@@ -172,6 +123,7 @@ public class ImpossibleBot extends Bot {
 
     }
 
+    @Override
     public void simulateMove() {
         while (true) {
             int a = rand.nextInt(this.OwnBoard.boardSize[0]);

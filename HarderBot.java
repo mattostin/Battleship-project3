@@ -28,51 +28,6 @@ public class HarderBot extends Bot {
         harderbotCode.start();
     }
 
-    /*public void placeShips() {
-        ArrayList<Ship> shipList = new ArrayList<>();
-        for (int i = sizes.length - 1; i >= 0; i--) {
-            Ship nextShip = placeShip(sizes[i], names[i]);
-            int count = 1;
-            for (Tile a: nextShip.location) {
-                a.placeBoat(nextShip.shipName, count, nextShip.rotate);
-                count++;
-            }
-            shipList.add(nextShip);
-        }
-        this.SetShips(shipList);
-    }*/
-    
-
-    // public boolean isValidPlacement(int x, int y, int size, boolean rotate) {
-    //     if (rotate) {
-    //         for (int i = 0; i < size; i++) {
-    //             if (OwnBoard.getTile(x + i, y).hasBoat()) {
-    //                 return false;
-    //             }
-    //         }
-    //     } else {
-    //         for (int i = 0; i < size; i++) {
-    //             if (OwnBoard.getTile(x, y + i).hasBoat()) {
-    //                 return false;
-    //             }
-    //         }
-    //     }
-    //     return true;
-    // }
-
-    /*private Ship placeShipOnBoard(int x, int y, int size, boolean rotate, String name) {
-        Tile[] location = new Tile[size];
-        for (int i = 0; i < size; i++) {
-            if (rotate) {
-                location[i] = OwnBoard.getTile(x + i, y);
-            } else {
-                location[i] = OwnBoard.getTile(x, y + i);
-            }
-        }
-        Ship ship = new Ship(size, location, name, rotate);
-        return ship;
-    }*/
-
     @Override
     public void simulateMove() {
         if (turn) {
@@ -85,40 +40,44 @@ public class HarderBot extends Bot {
             }
         }
     }
-    
+
     private Tile bestMove() {
         ArrayList<Tile> hitTiles = getHitTiles();
+        ArrayList<Tile> possibleMoves = new ArrayList<>();
 
         for (Tile hitTile : hitTiles) {
             int x = hitTile.getX();
             int y = hitTile.getY();
 
-            if (isValidTarget(x + 1, y)) {
-                return OppBoard.getTile(x + 1, y);
-            }
-            if (isValidTarget(x - 1, y)) {
-                return OppBoard.getTile(x - 1, y);
-            }
-            if (isValidTarget(x, y + 1)) {
-                return OppBoard.getTile(x, y + 1);
-            }
-            if (isValidTarget(x, y - 1)) {
-                return OppBoard.getTile(x, y - 1);
-            }
+            addValidTarget(possibleMoves, x + 1, y);
+            addValidTarget(possibleMoves, x - 1, y);
+            addValidTarget(possibleMoves, x, y + 1);
+            addValidTarget(possibleMoves, x, y - 1);
+        }
+
+        if (!possibleMoves.isEmpty()) {
+            int randomIndex = rand.nextInt(possibleMoves.size());
+            return possibleMoves.get(randomIndex);
         }
 
         int a = rand.nextInt(this.OwnBoard.boardSize[0]);
         int b = rand.nextInt(this.OwnBoard.boardSize[1]);
         return OppBoard.getTile(a, b);
-        
+    }
+
+    private void addValidTarget(ArrayList<Tile> possibleMoves, int x, int y) {
+        if (isValidTarget(x, y)) {
+            possibleMoves.add(OppBoard.getTile(x, y));
+        }
     }
 
     private ArrayList<Tile> getHitTiles() {
         ArrayList<Tile> hitTiles = new ArrayList<>();
+
         for (int r = 0; r < this.OppBoard.boardSize[0]; r++) {
             for (int c = 0; c < this.OppBoard.boardSize[1]; c++) {
                 Tile tile = OppBoard.getTile(r, c);
-                if (tile.hasBoat() && tile.beenHit()) {
+                if (tile.hasBoat() && tile.beenHit() && !tile.ship.isDead()) {
                     hitTiles.add(tile);
                 }
             }
